@@ -13,3 +13,4 @@ node_modules
 
 /netlify/functions/server/index.js
 /.netlify
+/.cache

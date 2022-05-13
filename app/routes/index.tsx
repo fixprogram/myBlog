@@ -6,9 +6,8 @@ import { formatDateTime, useOptionalUser } from "~/utils";
 import { getPostListItems } from "~/models/post.server";
 import { json } from "@remix-run/server-runtime";
 import type { LoaderFunction } from "@remix-run/server-runtime";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import AuthorPhoto from "../../public/author_photo.jpg";
-import { Link } from "react-router-dom";
 
 const SOCIAL = [
   {

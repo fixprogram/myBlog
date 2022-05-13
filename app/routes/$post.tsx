@@ -3,43 +3,43 @@ import { json, redirect } from "@remix-run/node";
 import { Form, useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
-import type { Article } from "~/models/article.server";
-import { deleteArticle } from "~/models/article.server";
-import { getArticle } from "~/models/article.server";
+import type { Post } from "~/models/post.server";
+import { deletePost } from "~/models/post.server";
+import { getPost } from "~/models/post.server";
 import { requireUserId } from "~/session.server";
 
 type LoaderData = {
-  article: Article;
+  post: Post;
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   //   const userId = await requireUserId(request);
-  invariant(params.article, "article not found");
+  invariant(params.post, "post not found");
 
-  const article = await getArticle({ id: params.article });
-  if (!article) {
+  const post = await getPost({ id: params.post });
+  if (!post) {
     throw new Response("Not Found", { status: 404 });
   }
-  return json<LoaderData>({ article });
+  return json<LoaderData>({ post });
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
   //   const userId = await requireUserId(request);
-  invariant(params.article, "article not found");
+  invariant(params.post, "post not found");
 
-  await deleteArticle({ id: params.article });
+  await deletePost({ id: params.post });
 
   return redirect("/");
 };
 
 export default function NoteDetailsPage() {
-  const data = useLoaderData() as LoaderData;
+  const { post } = useLoaderData() as LoaderData;
 
   return (
     <section style={{ paddingTop: 56, paddingLeft: 79 }}>
       <article className="mx-20">
-        <h1 className="text-3xl font-bold">{data.article.title}</h1>
-        <p className="py-6">{data.article.body}</p>
+        <h1 className="text-3xl font-bold">{post.title}</h1>
+        <p className="py-6">{post.content}</p>
       </article>
     </section>
   );

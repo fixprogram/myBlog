@@ -1,11 +1,10 @@
 import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData } from "@remix-run/react";
-import * as React from "react";
 import Logo from "~/../public/logo.svg";
-import ContentBlock from "~/components/content-block";
 
-import { createArticle } from "~/models/article.server";
+import { createPost } from "~/models/post.server";
+import { Editor } from "~/modules/editor";
 
 type ActionData = {
   errors?: {
@@ -17,7 +16,7 @@ type ActionData = {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const title = formData.get("title");
-  const body = formData.get("body");
+  const body = formData.getAll("p");
 
   if (typeof title !== "string" || title.length === 0) {
     return json<ActionData>(
@@ -26,66 +25,28 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  if (typeof body !== "string" || body.length === 0) {
+  if (body.length === 0) {
+    console.log("body: ", body);
     return json<ActionData>(
       { errors: { body: "Body is required" } },
       { status: 400 }
     );
   }
 
-  const article = await createArticle({ title, body });
+  const post = await createPost({
+    title,
+    content: body.join(" "),
+    tags: ["Java Script"],
+  });
 
-  return redirect(`/${article.id}`);
+  return redirect(`/${post.id}`);
 };
 
-export default function NewArticlePage() {
+export default function NewPostPage() {
   const actionData = useActionData() as ActionData;
-  const titleRef = React.useRef<HTMLInputElement>(null);
-  const bodyRef = React.useRef<HTMLTextAreaElement>(null);
-
-  const [content, setContent] = React.useState([{ value: "" }]);
-  const [previous, setPrevious] = React.useState(false);
-  const itemsRef = React.useRef<Array<HTMLDivElement | null>>([]);
-
-  React.useEffect(() => {
-    itemsRef.current = itemsRef.current.slice(0, content?.length);
-    if (previous) {
-      setFocusOnLastContent();
-    }
-  }, [content, previous]);
-
-  function setFocusOnLastContent() {
-    itemsRef.current[content?.length - 1]?.focus();
-  }
-
-  function setFocusOnNextContent(idx: number) {
-    itemsRef.current[idx + 1]?.focus();
-  }
-
-  function setFocusOnPreviousContent(idx: number) {
-    if (itemsRef.current[idx - 1]) {
-      itemsRef.current[idx - 1]?.focus();
-    }
-  }
-
-  // React.useEffect(() => {
-  //   if (actionData?.errors?.title) {
-  //     titleRef.current?.focus();
-  //   } else if (actionData?.errors?.body) {
-  //     bodyRef.current?.focus();
-  //   }
-  // }, [actionData]);
 
   return (
-    <Form
-      method="post"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        width: "100%",
-      }}
-    >
+    <Form method="post">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between p-6">
         <div>
           <Link to="/">
@@ -96,32 +57,14 @@ export default function NewArticlePage() {
           <button type="submit">Publish</button>
         </div>
       </div>
-      <section className="mx-auto mt-5 w-full max-w-3xl px-5">
-        {content?.map(({ value }: any, idx: number) => {
-          return (
-            <ContentBlock
-              value={value}
-              key={idx + value}
-              onRemove={() => {
-                setContent((prevContent) => {
-                  const newContent = prevContent;
-                  newContent.splice(idx, 1);
-                  return { ...newContent };
-                });
-                setFocusOnPreviousContent(idx);
-              }}
-              onAdd={() => {
-                setContent((prevContent) => [
-                  ...prevContent,
-                  { value: itemsRef.current[idx]?.value },
-                ]);
-                setFocusOnNextContent(idx);
-              }}
-              refName={(el: any) => (itemsRef.current[idx] = el)}
-            />
-          );
-        })}
-      </section>
+      <input
+        type="text"
+        name="title"
+        placeholder="Title"
+        className="mx-auto mt-5 w-full max-w-3xl px-5"
+        required
+      />
+      <Editor data={{ title: "", content: [] }} />
     </Form>
   );
 }

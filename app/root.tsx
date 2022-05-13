@@ -21,7 +21,7 @@ export const links: LinksFunction = () => {
     { rel: "stylesheet", href: tailwindStylesheetUrl },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto&display=swap",
     },
   ];
 };

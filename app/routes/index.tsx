@@ -1,73 +1,65 @@
-import Article from "~/components/article";
+import Post from "~/components/post";
 import Menu from "~/components/menu";
 
-import { useOptionalUser } from "~/utils";
+import { formatDateTime, useOptionalUser } from "~/utils";
 
-import { getArticleListItems } from "~/models/article.server";
-import { LoaderFunction, json } from "@remix-run/server-runtime";
-import { requireUserId } from "~/session.server";
+import { getPostListItems } from "~/models/post.server";
+import { json } from "@remix-run/server-runtime";
+import type { LoaderFunction } from "@remix-run/server-runtime";
 import { useLoaderData } from "@remix-run/react";
-import { useEffect } from "react";
+import MePhoto from "../../public/me_photo.jpg";
 
 type LoaderData = {
-  articles: Awaited<ReturnType<typeof getArticleListItems>>;
+  posts: Awaited<ReturnType<typeof getPostListItems>>;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const articles = await getArticleListItems();
-  return json<LoaderData>({ articles });
+  const posts = await getPostListItems();
+  return json<LoaderData>({ posts });
 };
 
 export default function Index() {
-  const { articles } = useLoaderData() as LoaderData;
+  const { posts } = useLoaderData() as LoaderData;
   const user = useOptionalUser();
 
-  useEffect(() => {
-    console.log(articles);
-  }, []);
-
   return (
-    <main>
+    <main className="bg-whip px-14 pt-7">
       <Menu user={user} />
-      <section className="border-b border-black bg-orange">
-        <section className="mx-14 flex justify-between px-20">
-          <div className="max-w-md py-20">
-            <h2
-              style={{ fontSize: 96, lineHeight: "90px" }}
-              className="text-black"
-            >
-              Never stop studying
-            </h2>
-          </div>
-          <div>Animation</div>
-        </section>
+      <section className="mt-20 flex justify-between px-20">
+        <div className="max-w-lr py-20">
+          <h1
+            className="font-title text-6xl text-black"
+            style={{ margin: "0.67em 0" }}
+          >
+            Hey I'm Dan Davydov
+          </h1>
+          <p className="font-text text-2xl">
+            I’m a web developer and content creator based in Finland.
+          </p>
+          <ul className="flex"></ul>
+        </div>
+        <div>
+          <img
+            src={MePhoto}
+            alt="Dan Davydov"
+            className="w-auto max-w-sm rounded-full"
+          />
+        </div>
       </section>
 
-      <section
-        style={{ paddingTop: 56 }}
-        className="mx-14 flex justify-between px-20"
-      >
-        <div>
-          {articles.map((article) => (
-            <Article
-              key={article.id}
-              to={article.id}
-              title={article.title}
-              // description={article.body}
+      <section className="mt-20 px-20">
+        <h2 className="font-title text-4xl">Latest Posts</h2>
+        <div className="flex flex-wrap justify-between">
+          {posts.map(({ id, title, content, createdAt, tags }) => (
+            <Post
+              key={id}
+              to={id}
+              title={title}
+              description={content}
+              createdAt={formatDateTime(new Date(createdAt))}
+              tags={tags}
             />
           ))}
-          {/* <Article
-            to="/article"
-            title="What Does the Perfect Work Day Look Like?"
-            description="My 20-year experiment with work/life balance is paying off"
-          /> */}
-        </div>
-
-        <div>
-          <b>DISCOVER MORE OF WHAT MATTERS TO YOU</b>
-          <ul>
-            <li></li>
-          </ul>
         </div>
       </section>
     </main>

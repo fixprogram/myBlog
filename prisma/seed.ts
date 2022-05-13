@@ -1,47 +1,65 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function seed() {
-  const email = "den@test.com";
-
-  // cleanup the existing database
-  await prisma.user.delete({ where: { email } }).catch(() => {
-    // no worries if it doesn't exist yet
-  });
-
-  const hashedPassword = await bcrypt.hash("denisichka", 10);
-
-  await prisma.user.create({
-    data: {
-      email,
-      password: {
-        create: {
-          hash: hashedPassword,
+const userData: Prisma.UserCreateInput[] = [
+  {
+    name: "Jesse",
+    email: "jesse@mongodb.com",
+    posts: {
+      create: [
+        {
+          title: "Join the MongoDB Community",
+          content: "https://community.mongodb.com/",
+          published: true,
         },
-      },
+      ],
     },
-  });
-
-  await prisma.article.create({
-    data: {
-      title: "My first note",
-      body: "Hello, world!",
+  },
+  {
+    name: "Mira",
+    email: "mira@mongodb.com",
+    posts: {
+      create: [
+        {
+          title: "Follow MongoDB on Twitter",
+          content: "https://www.twitter.com/mongodb",
+          published: true,
+        },
+      ],
     },
-  });
-
-  await prisma.article.create({
-    data: {
-      title: "My second note",
-      body: "Hello, world!",
+  },
+  {
+    name: "Mike",
+    email: "mike@mongodb.com",
+    posts: {
+      create: [
+        {
+          title: "We have a podcast!",
+          content: "https://podcasts.mongodb.com/",
+          published: true,
+        },
+        {
+          title: "MongoDB on YouTube",
+          content: "https://www.youtube.com/c/MongoDBofficial",
+        },
+      ],
     },
-  });
+  },
+];
 
-  console.log(`Database has been seeded. 🌱`);
+async function main() {
+  console.log(`Start seeding ...`);
+  for (const u of userData) {
+    const user = await prisma.user.create({
+      data: u,
+    });
+    console.log(`Created user with id: ${user.id}`);
+  }
+  console.log(`Seeding finished.`);
 }
 
-seed()
+main()
   .catch((e) => {
     console.error(e);
     process.exit(1);

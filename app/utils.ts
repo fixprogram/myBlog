@@ -69,3 +69,11 @@ export function useUser(): User {
 export function validateEmail(email: unknown): email is string {
   return typeof email === "string" && email.length > 3 && email.includes("@");
 }
+
+export function formatDateTime(date: Date) {
+  const yyyy = date.getFullYear();
+  const mm = date.toLocaleString("default", { month: "long" });
+  const dd = date.getDate();
+
+  return mm + " " + dd + " " + yyyy;
+}

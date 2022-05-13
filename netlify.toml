@@ -4,7 +4,8 @@
   publish = "public"
 
 [dev]
-  command = "remix watch"
+  functions = "netlify/functions"
+  publish = "public"
   port = 3000
 
 [[redirects]]

@@ -8,6 +8,40 @@ import { json } from "@remix-run/server-runtime";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import { useLoaderData } from "@remix-run/react";
 import MePhoto from "../../public/me_photo.jpg";
+import { Link } from "react-router-dom";
+
+const SOCIAL = [
+  {
+    abbr: "GitHub",
+    name: "GH",
+    link: "",
+  },
+  {
+    abbr: "Twitter",
+    name: "TW",
+    link: "",
+  },
+  {
+    abbr: "Instagram",
+    name: "IG",
+    link: "",
+  },
+  {
+    abbr: "LinkedIn",
+    name: "LI",
+    link: "",
+  },
+  {
+    abbr: "Dev.to",
+    name: "DV",
+    link: "",
+  },
+  {
+    abbr: "YouTube",
+    name: "YT",
+    link: "",
+  },
+];
 
 type LoaderData = {
   posts: Awaited<ReturnType<typeof getPostListItems>>;
@@ -36,7 +70,20 @@ export default function Index() {
           <p className="font-text text-2xl">
             I’m a web developer and content creator based in Finland.
           </p>
-          <ul className="flex"></ul>
+          <ul className="mt-6 flex">
+            {SOCIAL.map((social_item) => (
+              <li key={social_item.name}>
+                <abbr title="" className="pr-5 no-underline">
+                  <Link
+                    to={social_item.link}
+                    className="font-text text-2xl	font-semibold text-black"
+                  >
+                    {social_item.name}
+                  </Link>
+                </abbr>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <img

@@ -1,12 +1,11 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useCatch, useLoaderData } from "@remix-run/react";
+import { useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 import type { Post } from "~/models/post.server";
 import { deletePost } from "~/models/post.server";
 import { getPost } from "~/models/post.server";
-import { requireUserId } from "~/session.server";
 
 type LoaderData = {
   post: Post;

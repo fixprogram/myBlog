@@ -7,7 +7,7 @@ import { getPostListItems } from "~/models/post.server";
 import { json } from "@remix-run/server-runtime";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import { useLoaderData } from "@remix-run/react";
-import MePhoto from "../../public/me_photo.jpg";
+import AuthorPhoto from "../../public/author_photo.jpg";
 import { Link } from "react-router-dom";
 
 const SOCIAL = [
@@ -87,7 +87,7 @@ export default function Index() {
         </div>
         <div>
           <img
-            src={MePhoto}
+            src={AuthorPhoto}
             alt="Dan Davydov"
             className="w-auto max-w-sm rounded-full"
           />

@@ -13,12 +13,12 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import tailwindStylesheetUrl from "~/styles/tailwind.css";
+import styles from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 
 export const links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: styles },
     {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto&display=swap",

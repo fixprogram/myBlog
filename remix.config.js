@@ -1,10 +1,10 @@
 /**
- * @type {import('@remix-run/dev').AppConfig}
+ * @type {import('@remix-run/dev/config').AppConfig}
  */
-module.exports = {
+ module.exports = {
   appDirectory: "app",
-  browserBuildDirectory: "public/build",
+  assetsBuildDirectory: "public/build",
   publicPath: "/build/",
-  serverBuildDirectory: "netlify/functions/server/build",
-  devServerPort: 8888,
+  serverBuildDirectory: "api/_build",
+  ignoredRouteFiles: [".*"],
 };

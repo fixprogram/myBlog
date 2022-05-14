@@ -6,7 +6,7 @@
   "sideEffects": false,
   "scripts": {
     "postinstall": "remix setup node",
-    "vercel-build": "npx prisma generate && remix build",
+    "vercel-build": "npx prisma generate && npm run build",
     "build": "run-s build:*",
     "build:css": "tailwindcss -o ./app/styles/tailwind.css",
     "build:remix": "remix build",

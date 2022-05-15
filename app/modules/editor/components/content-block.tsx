@@ -1,66 +1,3 @@
-// import { useEffect, useRef, useState } from "react";
-
-// export default function ContentBlock({
-//   //   tag,
-//   value,
-//   // refName,
-//   onRemove,
-//   onAdd,
-//   active,
-// }: //   setFocusOnPreviousContent,
-// {
-//   //   tag: string;
-//   value: string;
-//   // refName: any;
-//   onRemove: Function;
-//   onAdd: Function;
-//   active: boolean;
-//   //   setFocusOnPreviousContent: Function;
-// }) {
-//   const [blockValue, setBlockValue] = useState(value);
-//   const contentBlockRef = useRef<HTMLTextAreaElement>(null);
-
-//   useEffect(() => {
-//     if (active) {
-//       console.log("Focus");
-//       contentBlockRef.current?.focus();
-//     }
-//   }, [active]);
-
-//   return (
-//     <div
-//       onKeyDown={(evt) => {
-//         const target = evt.target as HTMLInputElement;
-//         target.style.height = "inherit";
-//         target.style.height = `${evt.target.scrollHeight + 2}px`;
-//         if (evt.code === "Backspace" && target.value.length === 0) {
-//           onRemove();
-//         }
-//         // if (evt.code === "1") {
-//         //   evt?.preventDefault();
-//         //   onAdd();
-//         // }
-//       }}
-//       tabIndex={0}
-//       style={{ position: "relative" }}
-//     >
-//       {/* {formatContent(tag, value, refName, setFocusOnPreviousContent)} */}
-//       <textarea
-//         // type="text"
-//         name="body"
-//         className="w-full resize-none text-xl focus:outline-none"
-//         // className="sr-only	"
-//         ref={contentBlockRef}
-//         // defaultValue={value}
-//         value={blockValue}
-//         onChange={(evt) => setBlockValue(evt.target.value)}
-//         placeholder="Start your story..."
-//       />
-//       {/* <p>{blockValue}</p> */}
-//     </div>
-//   );
-// }
-
 import StudyInput from "./input-block";
 import TextBlock from "./text-block/text-block";
 
@@ -134,6 +71,9 @@ export default function ContentBlock({
           onRemove();
         }
         if (evt.code === "Enter") {
+          if(evt.target.selectionStart !== evt.target.value.length) {
+            return
+          }
           evt?.preventDefault();
           onAdd();
         }

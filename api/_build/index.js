@@ -97,7 +97,7 @@ var import_node2 = require("@remix-run/node");
 var import_react2 = require("@remix-run/react");
 
 // app/styles/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-MMZUH25G.css";
+var tailwind_default = "/build/_assets/tailwind-3WZBCXON.css";
 
 // app/session.server.ts
 var import_node = require("@remix-run/node");
@@ -216,13 +216,13 @@ var links = () => {
     { rel: "stylesheet", href: tailwind_default },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto&display=swap"
+      href: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600&family=Montserrat:wght@600&display=swap"
     }
   ];
 };
 var meta = () => ({
   charset: "utf-8",
-  title: "myBlog",
+  title: "Den Davydov",
   viewport: "width=device-width,initial-scale=1"
 });
 var loader = async ({ request }) => {
@@ -262,30 +262,16 @@ var loader2 = async ({ request }) => {
   }
 };
 
-// route:/Users/newll/Desktop/blog/app/routes/logout.tsx
-var logout_exports = {};
-__export(logout_exports, {
-  action: () => action,
-  loader: () => loader3
-});
-var import_node3 = require("@remix-run/node");
-var action = async ({ request }) => {
-  return logout(request);
-};
-var loader3 = async () => {
-  return (0, import_node3.redirect)("/");
-};
-
-// route:/Users/newll/Desktop/blog/app/routes/$post.tsx
+// route:/Users/newll/Desktop/blog/app/routes/blog/$post.tsx
 var post_exports = {};
 __export(post_exports, {
   CatchBoundary: () => CatchBoundary,
   ErrorBoundary: () => ErrorBoundary,
-  action: () => action2,
+  action: () => action,
   default: () => NoteDetailsPage,
-  loader: () => loader4
+  loader: () => loader3
 });
-var import_node4 = require("@remix-run/node");
+var import_node3 = require("@remix-run/node");
 var import_react3 = require("@remix-run/react");
 var import_tiny_invariant2 = __toESM(require("tiny-invariant"));
 
@@ -326,24 +312,24 @@ function deletePost({ id }) {
   });
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/$post.tsx
-var loader4 = async ({ request, params }) => {
+// route:/Users/newll/Desktop/blog/app/routes/blog/$post.tsx
+var loader3 = async ({ request, params }) => {
   (0, import_tiny_invariant2.default)(params.post, "post not found");
   const post = await getPost({ id: params.post });
   if (!post) {
     throw new Response("Not Found", { status: 404 });
   }
-  return (0, import_node4.json)({ post });
+  return (0, import_node3.json)({ post });
 };
-var action2 = async ({ request, params }) => {
+var action = async ({ request, params }) => {
   (0, import_tiny_invariant2.default)(params.post, "post not found");
   await deletePost({ id: params.post });
-  return (0, import_node4.redirect)("/");
+  return (0, import_node3.redirect)("/");
 };
 function NoteDetailsPage() {
   const { post } = (0, import_react3.useLoaderData)();
   return /* @__PURE__ */ React.createElement("section", {
-    style: { paddingTop: 56, paddingLeft: 79 }
+    className: "mx-20 p-20"
   }, /* @__PURE__ */ React.createElement("article", {
     className: "mx-20"
   }, /* @__PURE__ */ React.createElement("h1", {
@@ -364,37 +350,15 @@ function CatchBoundary() {
   throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/index.tsx
-var routes_exports = {};
-__export(routes_exports, {
+// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
+var blog_exports = {};
+__export(blog_exports, {
   default: () => Index,
-  loader: () => loader5
+  loader: () => loader4
 });
 
-// app/components/post.tsx
-var import_react4 = require("@remix-run/react");
-function Post({
-  to = "",
-  title = "",
-  description = "",
-  image = "",
-  createdAt = "",
-  tags = [""]
-}) {
-  return /* @__PURE__ */ React.createElement("div", {
-    className: "mt-12 w-full max-w-lg"
-  }, /* @__PURE__ */ React.createElement(import_react4.Link, {
-    to,
-    className: "flex justify-between"
-  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", {
-    className: "color-black font-title text-3xl"
-  }, title), /* @__PURE__ */ React.createElement("p", null, description)), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("time", {
-    className: "text-lg	"
-  }, createdAt), /* @__PURE__ */ React.createElement("p", null, tags))));
-}
-
 // app/components/menu.tsx
-var import_react5 = require("@remix-run/react");
+var import_react4 = require("@remix-run/react");
 
 // public/logo.svg
 var logo_default = "/build/_assets/logo-XDBE6HHO.svg";
@@ -425,7 +389,7 @@ var MENU = [
 function Menu({ user }) {
   return /* @__PURE__ */ React.createElement("div", {
     className: "flex h-16 items-center justify-between py-6 px-20"
-  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react5.Link, {
+  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react4.Link, {
     to: "/"
   }, /* @__PURE__ */ React.createElement("img", {
     src: logo_default,
@@ -438,7 +402,7 @@ function Menu({ user }) {
     if (menuItem.auth && !user) {
       return null;
     }
-    return /* @__PURE__ */ React.createElement(import_react5.Link, {
+    return /* @__PURE__ */ React.createElement(import_react4.Link, {
       to: menuItem.link,
       key: menuItem.link,
       className: `mr-12 text-xl font-bold ${idx === MENU.length - 1 && "mr-0"}`
@@ -447,8 +411,8 @@ function Menu({ user }) {
 }
 
 // app/utils.ts
-var import_react6 = require("@remix-run/react");
-var import_react7 = require("react");
+var import_react5 = require("@remix-run/react");
+var import_react6 = require("react");
 var DEFAULT_REDIRECT = "/";
 function safeRedirect(to, defaultRedirect = DEFAULT_REDIRECT) {
   if (!to || typeof to !== "string") {
@@ -460,8 +424,8 @@ function safeRedirect(to, defaultRedirect = DEFAULT_REDIRECT) {
   return to;
 }
 function useMatchesData(id) {
-  const matchingRoutes = (0, import_react6.useMatches)();
-  const route = (0, import_react7.useMemo)(() => matchingRoutes.find((route2) => route2.id === id), [matchingRoutes, id]);
+  const matchingRoutes = (0, import_react5.useMatches)();
+  const route = (0, import_react6.useMemo)(() => matchingRoutes.find((route2) => route2.id === id), [matchingRoutes, id]);
   return route == null ? void 0 : route.data;
 }
 function isUser(user) {
@@ -484,9 +448,119 @@ function formatDateTime(date) {
   return mm + " " + dd + " " + yyyy;
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/index.tsx
+// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
 var import_server_runtime = require("@remix-run/server-runtime");
-var import_react8 = require("@remix-run/react");
+var import_react9 = require("@remix-run/react");
+
+// app/modules/blog/index.tsx
+var import_react8 = require("react");
+
+// app/components/post.tsx
+var import_react7 = require("@remix-run/react");
+function BlogPost({
+  to = "",
+  title = "",
+  description = "",
+  image = "",
+  createdAt = "",
+  tags = [""]
+}) {
+  return /* @__PURE__ */ React.createElement(import_react7.Link, {
+    to,
+    className: "flex justify-between"
+  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", {
+    className: "color-black font-title text-3xl"
+  }, title), /* @__PURE__ */ React.createElement("p", null, description)), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("time", {
+    className: "text-lg	"
+  }, createdAt), /* @__PURE__ */ React.createElement("p", null, tags)));
+}
+
+// app/modules/blog/index.tsx
+var TAGS = ["Java Script", "Node", "React"];
+function Blog({ posts }) {
+  const [activeFilter, setActiveFilter] = (0, import_react8.useState)("all");
+  const [search, setSearch] = (0, import_react8.useState)("");
+  return /* @__PURE__ */ React.createElement("section", {
+    className: "flex justify-between"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "w-full max-w-sm"
+  }, /* @__PURE__ */ React.createElement("form", {
+    method: "post"
+  }, /* @__PURE__ */ React.createElement("input", {
+    type: "search",
+    placeholder: "Search a post",
+    value: search,
+    onChange: (e) => {
+      setSearch(e.target.value);
+    }
+  })), /* @__PURE__ */ React.createElement("ul", null, TAGS.map((tag) => /* @__PURE__ */ React.createElement("li", {
+    key: tag
+  }, /* @__PURE__ */ React.createElement("button", {
+    className: tag === activeFilter ? "border-2" : "border-0",
+    onClick: () => {
+      if (activeFilter === tag)
+        return setActiveFilter("all");
+      return setActiveFilter(tag);
+    }
+  }, tag))))), /* @__PURE__ */ React.createElement("div", {
+    className: "flex w-full max-w-3xl flex-wrap divide-y-2"
+  }, posts.map(({ id, title, content, createdAt, tags }) => {
+    if (activeFilter === "all" || tags.includes(activeFilter)) {
+      return title.includes(search) && /* @__PURE__ */ React.createElement("div", {
+        className: "w-full mb-4 py-4",
+        key: id
+      }, /* @__PURE__ */ React.createElement(BlogPost, {
+        to: id,
+        title,
+        description: content,
+        createdAt: formatDateTime(new Date(createdAt)),
+        tags
+      }));
+    }
+  })));
+}
+
+// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
+var loader4 = async ({ request }) => {
+  const posts = await getPostListItems();
+  return (0, import_server_runtime.json)({ posts });
+};
+function Index() {
+  const { posts } = (0, import_react9.useLoaderData)();
+  const user = useOptionalUser();
+  return /* @__PURE__ */ React.createElement("main", {
+    className: "bg-whip px-14 pt-7 min-h-screen"
+  }, /* @__PURE__ */ React.createElement(Menu, {
+    user
+  }), /* @__PURE__ */ React.createElement("section", {
+    className: "mt-20 px-20"
+  }, /* @__PURE__ */ React.createElement(Blog, {
+    posts
+  })));
+}
+
+// route:/Users/newll/Desktop/blog/app/routes/logout.tsx
+var logout_exports = {};
+__export(logout_exports, {
+  action: () => action2,
+  loader: () => loader5
+});
+var import_node4 = require("@remix-run/node");
+var action2 = async ({ request }) => {
+  return logout(request);
+};
+var loader5 = async () => {
+  return (0, import_node4.redirect)("/");
+};
+
+// route:/Users/newll/Desktop/blog/app/routes/index.tsx
+var routes_exports = {};
+__export(routes_exports, {
+  default: () => Index2,
+  loader: () => loader6
+});
+var import_server_runtime2 = require("@remix-run/server-runtime");
+var import_react10 = require("@remix-run/react");
 
 // public/author_photo.jpg
 var author_photo_default = "/build/_assets/author_photo-YU27NVH4.jpg";
@@ -524,15 +598,15 @@ var SOCIAL = [
     link: ""
   }
 ];
-var loader5 = async ({ request }) => {
+var loader6 = async ({ request }) => {
   const posts = await getPostListItems();
-  return (0, import_server_runtime.json)({ posts });
+  return (0, import_server_runtime2.json)({ posts });
 };
-function Index() {
-  const { posts } = (0, import_react8.useLoaderData)();
+function Index2() {
+  const { posts } = (0, import_react10.useLoaderData)();
   const user = useOptionalUser();
   return /* @__PURE__ */ React.createElement("main", {
-    className: "bg-whip px-14 pt-7"
+    className: "bg-whip px-14 pt-7 min-h-screen"
   }, /* @__PURE__ */ React.createElement(Menu, {
     user
   }), /* @__PURE__ */ React.createElement("section", {
@@ -542,7 +616,7 @@ function Index() {
   }, /* @__PURE__ */ React.createElement("h1", {
     className: "font-title text-6xl text-black",
     style: { margin: "0.67em 0" }
-  }, "Hey I'm Dan Davydov"), /* @__PURE__ */ React.createElement("p", {
+  }, "Hey I'm Den Davydov"), /* @__PURE__ */ React.createElement("p", {
     className: "font-text text-2xl"
   }, "I\u2019m a web developer and content creator based in Finland."), /* @__PURE__ */ React.createElement("ul", {
     className: "mt-6 flex"
@@ -551,12 +625,12 @@ function Index() {
   }, /* @__PURE__ */ React.createElement("abbr", {
     title: "",
     className: "pr-5 no-underline"
-  }, /* @__PURE__ */ React.createElement(import_react8.Link, {
+  }, /* @__PURE__ */ React.createElement(import_react10.Link, {
     to: social_item.link,
     className: "font-text text-2xl	font-semibold text-black"
   }, social_item.name)))))), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("img", {
     src: author_photo_default,
-    alt: "Dan Davydov",
+    alt: "Den Davydov",
     className: "w-auto max-w-sm rounded-full"
   }))), /* @__PURE__ */ React.createElement("section", {
     className: "mt-20 px-20"
@@ -564,14 +638,16 @@ function Index() {
     className: "font-title text-4xl"
   }, "Latest Posts"), /* @__PURE__ */ React.createElement("div", {
     className: "flex flex-wrap justify-between"
-  }, posts.map(({ id, title, content, createdAt, tags }) => /* @__PURE__ */ React.createElement(Post, {
-    key: id,
-    to: id,
+  }, posts.map(({ id, title, content, createdAt, tags }) => /* @__PURE__ */ React.createElement("div", {
+    className: "mt-12 w-full max-w-lg",
+    key: id
+  }, /* @__PURE__ */ React.createElement(BlogPost, {
+    to: `blog/${id}`,
     title,
     description: content,
     createdAt: formatDateTime(new Date(createdAt)),
     tags
-  })))));
+  }))))));
 }
 
 // route:/Users/newll/Desktop/blog/app/routes/login.tsx
@@ -579,13 +655,13 @@ var login_exports = {};
 __export(login_exports, {
   action: () => action3,
   default: () => LoginPage,
-  loader: () => loader6,
+  loader: () => loader7,
   meta: () => meta2
 });
 var import_node5 = require("@remix-run/node");
-var import_react9 = require("@remix-run/react");
+var import_react11 = require("@remix-run/react");
 var React2 = __toESM(require("react"));
-var loader6 = async ({ request }) => {
+var loader7 = async ({ request }) => {
   const userId = await getUserId(request);
   if (userId)
     return (0, import_node5.redirect)("/");
@@ -624,9 +700,9 @@ var meta2 = () => {
 };
 function LoginPage() {
   var _a, _b, _c, _d;
-  const [searchParams] = (0, import_react9.useSearchParams)();
+  const [searchParams] = (0, import_react11.useSearchParams)();
   const redirectTo = searchParams.get("redirectTo") || "/notes";
-  const actionData = (0, import_react9.useActionData)();
+  const actionData = (0, import_react11.useActionData)();
   const emailRef = React2.useRef(null);
   const passwordRef = React2.useRef(null);
   React2.useEffect(() => {
@@ -641,7 +717,7 @@ function LoginPage() {
     className: "flex min-h-full flex-col justify-center"
   }, /* @__PURE__ */ React2.createElement("div", {
     className: "mx-auto w-full max-w-md px-8"
-  }, /* @__PURE__ */ React2.createElement(import_react9.Form, {
+  }, /* @__PURE__ */ React2.createElement(import_react11.Form, {
     method: "post",
     className: "space-y-6"
   }, /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("label", {
@@ -701,7 +777,7 @@ function LoginPage() {
     className: "ml-2 block text-sm text-gray-900"
   }, "Remember me")), /* @__PURE__ */ React2.createElement("div", {
     className: "text-center text-sm text-gray-500"
-  }, "Don't have an account?", " ", /* @__PURE__ */ React2.createElement(import_react9.Link, {
+  }, "Don't have an account?", " ", /* @__PURE__ */ React2.createElement(import_react11.Link, {
     className: "text-blue-500 underline",
     to: {
       pathname: "/join",
@@ -715,13 +791,13 @@ var join_exports = {};
 __export(join_exports, {
   action: () => action4,
   default: () => Join,
-  loader: () => loader7,
+  loader: () => loader8,
   meta: () => meta3
 });
 var import_node6 = require("@remix-run/node");
-var import_react10 = require("@remix-run/react");
+var import_react12 = require("@remix-run/react");
 var React3 = __toESM(require("react"));
-var loader7 = async ({ request }) => {
+var loader8 = async ({ request }) => {
   const userId = await getUserId(request);
   if (userId)
     return (0, import_node6.redirect)("/");
@@ -760,9 +836,9 @@ var meta3 = () => {
 };
 function Join() {
   var _a, _b, _c, _d;
-  const [searchParams] = (0, import_react10.useSearchParams)();
+  const [searchParams] = (0, import_react12.useSearchParams)();
   const redirectTo = searchParams.get("redirectTo") ?? void 0;
-  const actionData = (0, import_react10.useActionData)();
+  const actionData = (0, import_react12.useActionData)();
   const emailRef = React3.useRef(null);
   const passwordRef = React3.useRef(null);
   React3.useEffect(() => {
@@ -777,7 +853,7 @@ function Join() {
     className: "flex min-h-full flex-col justify-center"
   }, /* @__PURE__ */ React3.createElement("div", {
     className: "mx-auto w-full max-w-md px-8"
-  }, /* @__PURE__ */ React3.createElement(import_react10.Form, {
+  }, /* @__PURE__ */ React3.createElement(import_react12.Form, {
     method: "post",
     className: "space-y-6"
   }, /* @__PURE__ */ React3.createElement("div", null, /* @__PURE__ */ React3.createElement("label", {
@@ -827,7 +903,7 @@ function Join() {
     className: "flex items-center justify-center"
   }, /* @__PURE__ */ React3.createElement("div", {
     className: "text-center text-sm text-gray-500"
-  }, "Already have an account?", " ", /* @__PURE__ */ React3.createElement(import_react10.Link, {
+  }, "Already have an account?", " ", /* @__PURE__ */ React3.createElement(import_react12.Link, {
     className: "text-blue-500 underline",
     to: {
       pathname: "/login",
@@ -843,20 +919,20 @@ __export(new_exports, {
   default: () => NewPostPage
 });
 var import_node7 = require("@remix-run/node");
-var import_react15 = require("@remix-run/react");
+var import_react17 = require("@remix-run/react");
 
 // app/modules/editor/index.tsx
-var import_react14 = require("react");
+var import_react16 = require("react");
 
 // app/modules/editor/components/input-block.tsx
-var import_react11 = require("react");
+var import_react13 = require("react");
 function StudyInput({
   initialValue,
   placeholder,
   refName,
   name
 }) {
-  const [value, setValue] = (0, import_react11.useState)(initialValue);
+  const [value, setValue] = (0, import_react13.useState)(initialValue);
   return /* @__PURE__ */ React.createElement("input", {
     type: "text",
     value,
@@ -871,7 +947,7 @@ function StudyInput({
 }
 
 // app/modules/editor/components/text-block/text-block.tsx
-var import_react12 = require("react");
+var import_react14 = require("react");
 var import_react_textarea_autosize = __toESM(require("react-textarea-autosize"));
 function TextBlock({
   initialValue = "",
@@ -879,8 +955,8 @@ function TextBlock({
   name,
   setFocusOnPreviousContent
 }) {
-  const [value, setValue] = (0, import_react12.useState)(initialValue);
-  (0, import_react12.useEffect)(() => {
+  const [value, setValue] = (0, import_react14.useState)(initialValue);
+  (0, import_react14.useEffect)(() => {
     if (refName.target) {
       refName.target.style.height = `${refName.target.scrollHeight}px`;
     }
@@ -953,6 +1029,9 @@ function ContentBlock({
         onRemove();
       }
       if (evt.code === "Enter") {
+        if (evt.target.selectionStart !== evt.target.value.length) {
+          return;
+        }
         evt == null ? void 0 : evt.preventDefault();
         onAdd();
       }
@@ -1020,20 +1099,21 @@ var reducer = (state, action6) => {
 };
 
 // app/modules/editor/components/textarea-block/textarea-block.tsx
-var import_react13 = require("react");
+var import_react15 = require("react");
 var import_react_textarea_autosize2 = __toESM(require("react-textarea-autosize"));
 function TextareaBlock({
   addContent,
   addSpace,
-  setFocusOnLastContent
+  setFocusOnLastContent,
+  addBlur
 }) {
-  const [value, setValue] = (0, import_react13.useState)("");
-  const ref = (0, import_react13.useRef)(null);
-  (0, import_react13.useEffect)(() => {
+  const [value, setValue] = (0, import_react15.useState)("");
+  const ref = (0, import_react15.useRef)(null);
+  (0, import_react15.useEffect)(() => {
     var _a;
     (_a = ref.current) == null ? void 0 : _a.focus();
   }, []);
-  (0, import_react13.useEffect)(() => {
+  (0, import_react15.useEffect)(() => {
     const match = /\r|\n/.exec(value);
     if (match) {
       if (value.length === 1) {
@@ -1062,15 +1142,18 @@ function TextareaBlock({
     },
     className: "mb-5 w-full resize-none text-xl focus:outline-none",
     onFocus: (e) => e.target.placeholder = `Type '/' for commands`,
-    onBlur: (e) => e.target.placeholder = ""
+    onBlur: (e) => {
+      addBlur();
+      return e.target.placeholder = "";
+    }
   });
 }
 
 // app/modules/editor/index.tsx
 var Editor = ({ data }) => {
-  const [{ onText, content, focusIndex, title }, dispatch] = (0, import_react14.useReducer)(reducer, __spreadValues({}, initialState));
-  const itemsRef = (0, import_react14.useRef)([]);
-  (0, import_react14.useEffect)(() => {
+  const [{ onText, content, focusIndex, title }, dispatch] = (0, import_react16.useReducer)(reducer, __spreadValues({}, initialState));
+  const itemsRef = (0, import_react16.useRef)([]);
+  (0, import_react16.useEffect)(() => {
     if (data) {
       dispatch({
         type: "SET_CONTENT" /* SetContent */,
@@ -1078,10 +1161,10 @@ var Editor = ({ data }) => {
       });
     }
   }, [data]);
-  (0, import_react14.useEffect)(() => {
+  (0, import_react16.useEffect)(() => {
     itemsRef.current = itemsRef.current.slice(0, content == null ? void 0 : content.length);
   }, [content]);
-  (0, import_react14.useEffect)(() => {
+  (0, import_react16.useEffect)(() => {
     setFocusOn(focusIndex);
   }, [focusIndex]);
   function setFocusOn(idx) {
@@ -1128,10 +1211,13 @@ var Editor = ({ data }) => {
       type: "ADD_SPACE" /* AddSpace */,
       payload: { idx: focusIndex }
     }),
+    addBlur: () => {
+      dispatch({ type: "BLUR_DOCUMENT" /* Blur */ });
+    },
     setFocusOnLastContent,
     height: "calc(100vh - 95px"
   }) : /* @__PURE__ */ React.createElement("div", {
-    style: { height: "100vh" },
+    style: { height: "80vh", cursor: "text" },
     onClick: () => {
       dispatch({ type: "FOCUS_DOCUMENT" /* Focus */ });
     }
@@ -1158,12 +1244,12 @@ var action5 = async ({ request }) => {
   return (0, import_node7.redirect)(`/${post.id}`);
 };
 function NewPostPage() {
-  const actionData = (0, import_react15.useActionData)();
-  return /* @__PURE__ */ React.createElement(import_react15.Form, {
+  const actionData = (0, import_react17.useActionData)();
+  return /* @__PURE__ */ React.createElement(import_react17.Form, {
     method: "post"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "mx-auto flex h-16 w-full max-w-5xl items-center justify-between p-6"
-  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react15.Link, {
+  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react17.Link, {
     to: "/"
   }, /* @__PURE__ */ React.createElement("img", {
     src: logo_default,
@@ -1186,7 +1272,7 @@ function NewPostPage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { "version": "4bd7f549", "entry": { "module": "/build/entry.client-HUAPOMJO.js", "imports": ["/build/_shared/chunk-F2HDMBH5.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-SDTDN7FG.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/$post": { "id": "routes/$post", "parentId": "root", "path": ":post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/$post-75FFIHF3.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-QPR2OL7H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-YWITC7VI.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-YR5GNZCJ.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-S6KGK4VG.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-YR5GNZCJ.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-T2FB66WC.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-YR5GNZCJ.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OYEYRJOD.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-4H5A3MNR.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-4BD7F549.js" };
+var assets_manifest_default = { "version": "9a41ff7e", "entry": { "module": "/build/entry.client-YDBIMOVO.js", "imports": ["/build/_shared/chunk-R3MHQ7R2.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-W2GNKU5H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-B355O5PE.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-ZZAZJXYC.js", "imports": ["/build/_shared/chunk-ZFXCRKQR.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-QPR2OL7H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-7FRFZWHG.js", "imports": ["/build/_shared/chunk-ZFXCRKQR.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-CLCHWVFO.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-H63JTUPA.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OYEYRJOD.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-CI77UT62.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-9A41FF7E.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports };
@@ -1207,6 +1293,22 @@ var routes = {
     caseSensitive: void 0,
     module: healthcheck_exports
   },
+  "routes/blog/$post": {
+    id: "routes/blog/$post",
+    parentId: "root",
+    path: "blog/:post",
+    index: void 0,
+    caseSensitive: void 0,
+    module: post_exports
+  },
+  "routes/blog/index": {
+    id: "routes/blog/index",
+    parentId: "root",
+    path: "blog",
+    index: true,
+    caseSensitive: void 0,
+    module: blog_exports
+  },
   "routes/logout": {
     id: "routes/logout",
     parentId: "root",
@@ -1214,14 +1316,6 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: logout_exports
-  },
-  "routes/$post": {
-    id: "routes/$post",
-    parentId: "root",
-    path: ":post",
-    index: void 0,
-    caseSensitive: void 0,
-    module: post_exports
   },
   "routes/index": {
     id: "routes/index",

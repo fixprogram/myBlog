@@ -35,7 +35,7 @@ export default function NoteDetailsPage() {
   const { post } = useLoaderData() as LoaderData;
 
   return (
-    <section style={{ paddingTop: 56, paddingLeft: 79 }}>
+    <section className="mx-20 p-20">
       <article className="mx-20">
         <h1 className="text-3xl font-bold">{post.title}</h1>
         <p className="py-6">{post.content}</p>

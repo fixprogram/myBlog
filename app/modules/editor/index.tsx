@@ -85,12 +85,13 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
               payload: { idx: focusIndex },
             })
           }
+          addBlur={() => {dispatch({type: ActionKind.Blur})}}
           setFocusOnLastContent={setFocusOnLastContent}
           height={"calc(100vh - 95px"}
         />
       ) : (
         <div
-          style={{ height: "100vh" }}
+          style={{ height: "80vh", cursor: 'text' }}
           onClick={() => {
             dispatch({ type: ActionKind.Focus });
           }}

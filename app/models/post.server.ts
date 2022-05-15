@@ -10,7 +10,7 @@ export function getPost({ id }: Pick<Post, "id">) {
   });
 }
 
-export function getPostListItems() {
+export function getPostListItems(): Post[] {
   return prisma.post.findMany({
     select: {
       id: true,

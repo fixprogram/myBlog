@@ -32,9 +32,6 @@
     "/public/build"
   ],
   "dependencies": {
-    "@editorjs/editorjs": "^2.24.3",
-    "@editorjs/header": "^2.6.2",
-    "@editorjs/list": "^1.7.0",
     "@prisma/client": "^3.14.0",
     "@remix-run/node": "^1.4.3",
     "@remix-run/react": "^1.4.3",

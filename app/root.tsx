@@ -21,14 +21,14 @@ export const links: LinksFunction = () => {
     { rel: "stylesheet", href: styles },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600&family=Montserrat:wght@600&display=swap",
     },
   ];
 };
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "myBlog",
+  title: "Den Davydov",
   viewport: "width=device-width,initial-scale=1",
 });
 

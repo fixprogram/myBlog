@@ -5,6 +5,7 @@ export default function TextareaBlock({
   addContent,
   addSpace,
   setFocusOnLastContent,
+  addBlur
 }) {
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement | null>(null);
@@ -45,7 +46,10 @@ export default function TextareaBlock({
       }}
       className="mb-5 w-full resize-none text-xl focus:outline-none"
       onFocus={(e) => (e.target.placeholder = `Type '/' for commands`)}
-      onBlur={(e) => (e.target.placeholder = "")}
+      onBlur={(e) => {
+        addBlur()
+        return e.target.placeholder = ""
+        }}
     />
   );
 }

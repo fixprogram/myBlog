@@ -56,7 +56,7 @@ export default function Index() {
   const user = useOptionalUser();
 
   return (
-    <main className="bg-whip px-14 pt-7">
+    <main className="bg-whip px-14 pt-7 min-h-screen">
       <Menu user={user} />
       <section className="mt-20 flex justify-between px-20">
         <div className="max-w-lr py-20">
@@ -64,7 +64,7 @@ export default function Index() {
             className="font-title text-6xl text-black"
             style={{ margin: "0.67em 0" }}
           >
-            Hey I'm Dan Davydov
+            Hey I'm Den Davydov
           </h1>
           <p className="font-text text-2xl">
             I’m a web developer and content creator based in Finland.
@@ -87,7 +87,7 @@ export default function Index() {
         <div>
           <img
             src={AuthorPhoto}
-            alt="Dan Davydov"
+            alt="Den Davydov"
             className="w-auto max-w-sm rounded-full"
           />
         </div>
@@ -97,14 +97,15 @@ export default function Index() {
         <h2 className="font-title text-4xl">Latest Posts</h2>
         <div className="flex flex-wrap justify-between">
           {posts.map(({ id, title, content, createdAt, tags }) => (
+          <div className="mt-12 w-full max-w-lg" key={id}>
             <Post
-              key={id}
-              to={id}
+              to={`blog/${id}`}
               title={title}
               description={content}
               createdAt={formatDateTime(new Date(createdAt))}
               tags={tags}
             />
+            </div>
           ))}
         </div>
       </section>

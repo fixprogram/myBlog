@@ -18,7 +18,7 @@ module.exports = {
       whip: "#FDF0D5",
     },
     fontFamily: {
-      text: ["Roboto", "sans-serif"],
+      text: ["Fira Sans", "sans-serif"],
       title: ["Montserrat", "serif"],
     },
   },

@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 
-export default function Post({
+export default function BlogPost({
   to = "",
   title = "",
   description = "",
@@ -9,7 +9,6 @@ export default function Post({
   tags = [""],
 }) {
   return (
-    <div className="mt-12 w-full max-w-lg">
       <Link to={to} className="flex justify-between">
         <div>
           <h2 className="color-black font-title text-3xl">{title}</h2>
@@ -20,6 +19,5 @@ export default function Post({
           <p>{tags}</p>
         </div>
       </Link>
-    </div>
   );
 }

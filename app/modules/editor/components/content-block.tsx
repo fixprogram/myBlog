@@ -51,7 +51,7 @@ export default function ContentBlock({
   value,
   refName,
   onRemove,
-  onAdd,
+  addSpace,
   setFocusOnPreviousContent,
   setFocusOnNextContent,
 }: {
@@ -59,7 +59,7 @@ export default function ContentBlock({
   value: string;
   refName: any;
   onRemove: Function;
-  onAdd: Function;
+  addSpace: Function;
   setFocusOnPreviousContent: Function;
   setFocusOnNextContent: Function;
 }) {
@@ -75,7 +75,8 @@ export default function ContentBlock({
             return
           }
           evt?.preventDefault();
-          onAdd();
+          
+          return addSpace();
         }
       }}
       tabIndex={0}

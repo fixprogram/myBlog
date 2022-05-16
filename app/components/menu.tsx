@@ -43,7 +43,7 @@ export default function Menu({ user }: { user: User | undefined }) {
               <Link
                 to={menuItem.link}
                 key={menuItem.link}
-                className={`mr-12 text-xl font-bold ${
+                className={`mr-12 text-xl font-semibold	font-text ${
                   idx === MENU.length - 1 && "mr-0"
                 }`}
               >

@@ -6,6 +6,11 @@ export default function TextareaBlock({
   addSpace,
   setFocusOnLastContent,
   addBlur
+}: {
+  addContent: Function,
+  addSpace: Function,
+  setFocusOnLastContent: Function,
+  addBlur: Function,
 }) {
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement | null>(null);

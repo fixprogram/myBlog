@@ -27,6 +27,7 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
   }, [content]);
 
   useEffect(() => {
+    console.log('Setting focus on: ', focusIndex)
     setFocusOn(focusIndex);
   }, [focusIndex]);
 
@@ -63,7 +64,7 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
                 payload: { idx },
               });
             }}
-            onAdd={() => {
+            addSpace={() => {
               dispatch({ type: ActionKind.AddSpace, payload: { idx } });
               // setFocusOnNextContent(idx);
             }}

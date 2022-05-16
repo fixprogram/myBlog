@@ -97,7 +97,7 @@ var import_node2 = require("@remix-run/node");
 var import_react2 = require("@remix-run/react");
 
 // app/styles/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-3WZBCXON.css";
+var tailwind_default = "/build/_assets/tailwind-4YK5TJ6G.css";
 
 // app/session.server.ts
 var import_node = require("@remix-run/node");
@@ -405,7 +405,7 @@ function Menu({ user }) {
     return /* @__PURE__ */ React.createElement(import_react4.Link, {
       to: menuItem.link,
       key: menuItem.link,
-      className: `mr-12 text-xl font-bold ${idx === MENU.length - 1 && "mr-0"}`
+      className: `mr-12 text-xl font-semibold	font-text ${idx === MENU.length - 1 && "mr-0"}`
     }, menuItem.name);
   }))));
 }
@@ -565,6 +565,9 @@ var import_react10 = require("@remix-run/react");
 // public/author_photo.jpg
 var author_photo_default = "/build/_assets/author_photo-YU27NVH4.jpg";
 
+// public/myDuo.png
+var myDuo_default = "/build/_assets/myDuo-PGYAQ65E.png";
+
 // route:/Users/newll/Desktop/blog/app/routes/index.tsx
 var SOCIAL = [
   {
@@ -596,6 +599,15 @@ var SOCIAL = [
     abbr: "YouTube",
     name: "YT",
     link: ""
+  }
+];
+var PROJECTS = [
+  {
+    title: "myDuo",
+    link: "https://my-duo.vercel.app/",
+    img: myDuo_default,
+    description: `Literally it's a clone of Duolingo.com, but with a little change: you can create your own exercises and practice them.`,
+    technologies: ["React", "Prisma", "MongoDB", "TS", "Vercel"]
   }
 ];
 var loader6 = async ({ request }) => {
@@ -633,7 +645,7 @@ function Index2() {
     alt: "Den Davydov",
     className: "w-auto max-w-sm rounded-full"
   }))), /* @__PURE__ */ React.createElement("section", {
-    className: "mt-20 px-20"
+    className: "my-20 p-20"
   }, /* @__PURE__ */ React.createElement("h2", {
     className: "font-title text-4xl"
   }, "Latest Posts"), /* @__PURE__ */ React.createElement("div", {
@@ -647,7 +659,38 @@ function Index2() {
     description: content,
     createdAt: formatDateTime(new Date(createdAt)),
     tags
-  }))))));
+  }))))), /* @__PURE__ */ React.createElement("section", {
+    className: "my-20 p-20"
+  }, /* @__PURE__ */ React.createElement("h2", {
+    className: "mb-10 font-title text-4xl"
+  }, "Latest Projects"), PROJECTS.map((project) => /* @__PURE__ */ React.createElement("div", {
+    key: project.title,
+    className: "flex"
+  }, /* @__PURE__ */ React.createElement("a", {
+    href: project.link,
+    className: "w-3/6"
+  }, /* @__PURE__ */ React.createElement("img", {
+    src: project.img,
+    alt: project.title
+  })), /* @__PURE__ */ React.createElement("div", {
+    className: "pl-5"
+  }, /* @__PURE__ */ React.createElement("a", {
+    href: project.link,
+    className: "font-title text-3xl"
+  }, project.title), /* @__PURE__ */ React.createElement("p", {
+    className: "font-text text-1xl my-3"
+  }, project.description), /* @__PURE__ */ React.createElement("p", null, "Technologies used: "), /* @__PURE__ */ React.createElement("ul", null, project.technologies.map((tech) => /* @__PURE__ */ React.createElement("li", {
+    key: tech
+  }, tech))))))), /* @__PURE__ */ React.createElement("section", {
+    className: "my-20 p-20 flex flex-col justify-center"
+  }, /* @__PURE__ */ React.createElement("h2", {
+    className: "mb-10 font-title text-4xl text-center"
+  }, "Get In Touch"), /* @__PURE__ */ React.createElement("p", {
+    className: "text-center mb-8"
+  }, "Currently I'm looking for a job as Frontend or Fullstack web developer."), /* @__PURE__ */ React.createElement("a", {
+    href: "mailto:qepttt@gmail.com",
+    className: "mx-auto p-5 bg-red text-white font-semibold"
+  }, "Say Hello")));
 }
 
 // route:/Users/newll/Desktop/blog/app/routes/login.tsx
@@ -1018,7 +1061,7 @@ function ContentBlock({
   value,
   refName,
   onRemove,
-  onAdd,
+  addSpace,
   setFocusOnPreviousContent,
   setFocusOnNextContent
 }) {
@@ -1033,7 +1076,7 @@ function ContentBlock({
           return;
         }
         evt == null ? void 0 : evt.preventDefault();
-        onAdd();
+        return addSpace();
       }
     },
     tabIndex: 0,
@@ -1076,7 +1119,7 @@ var reducer = (state, action6) => {
         onText: tag === "p" ? true : false,
         previous: tag === "h1",
         content: [...content, { tag, value }],
-        focusIndex: idx + 1
+        focusIndex: idx === -1 ? idx + 2 : idx + 1
       });
     }
     case "REMOVE_CONTENT" /* RemoveContent */: {
@@ -1165,6 +1208,7 @@ var Editor = ({ data }) => {
     itemsRef.current = itemsRef.current.slice(0, content == null ? void 0 : content.length);
   }, [content]);
   (0, import_react16.useEffect)(() => {
+    console.log("Setting focus on: ", focusIndex);
     setFocusOn(focusIndex);
   }, [focusIndex]);
   function setFocusOn(idx) {
@@ -1198,7 +1242,7 @@ var Editor = ({ data }) => {
           payload: { idx }
         });
       },
-      onAdd: () => {
+      addSpace: () => {
         dispatch({ type: "ADD_SPACE" /* AddSpace */, payload: { idx } });
       },
       refName: (el) => itemsRef.current[idx] = el,
@@ -1264,7 +1308,7 @@ function NewPostPage() {
     type: "text",
     name: "title",
     placeholder: "Title",
-    className: "mx-auto mt-5 w-full max-w-3xl px-5",
+    className: "mx-auto mt-5 w-full max-w-3xl px-5 block",
     required: true
   }), /* @__PURE__ */ React.createElement(Editor, {
     data: { title: "", content: [] }
@@ -1272,7 +1316,7 @@ function NewPostPage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { "version": "9a41ff7e", "entry": { "module": "/build/entry.client-YDBIMOVO.js", "imports": ["/build/_shared/chunk-R3MHQ7R2.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-W2GNKU5H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-B355O5PE.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-ZZAZJXYC.js", "imports": ["/build/_shared/chunk-ZFXCRKQR.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-QPR2OL7H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-7FRFZWHG.js", "imports": ["/build/_shared/chunk-ZFXCRKQR.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-CLCHWVFO.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-H63JTUPA.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-KQPFQCML.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OYEYRJOD.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-CI77UT62.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-9A41FF7E.js" };
+var assets_manifest_default = { "version": "73fd49ae", "entry": { "module": "/build/entry.client-N66XTCW7.js", "imports": ["/build/_shared/chunk-54VPSM24.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-PJI4FUTL.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-ZY4SCDAV.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-HHAXCJS7.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-QPR2OL7H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-5B54VULO.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-3AYB5F3S.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-MQSWOFAO.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OYEYRJOD.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-FWNED4EK.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-73FD49AE.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports };

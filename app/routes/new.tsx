@@ -61,7 +61,7 @@ export default function NewPostPage() {
         type="text"
         name="title"
         placeholder="Title"
-        className="mx-auto mt-5 w-full max-w-3xl px-5"
+        className="mx-auto mt-5 w-full max-w-3xl px-5 block"
         required
       />
       <Editor data={{ title: "", content: [] }} />

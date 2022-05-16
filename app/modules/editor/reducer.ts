@@ -64,7 +64,7 @@ export const reducer = (state: State, action: Action) => {
         onText: tag === "p" ? true : false,
         previous: tag === "h1",
         content: [...content, { tag, value }],
-        focusIndex: idx + 1,
+        focusIndex: idx === -1 ? idx + 2 : idx + 1 // After deleting all fields the index will be -1. Without increasing it on 2 at the beginning, we'll face issues with focus
       };
     }
     case ActionKind.RemoveContent: {

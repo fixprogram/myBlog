@@ -77,7 +77,7 @@ export const meta: MetaFunction = () => {
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") || "/notes";
+  const redirectTo = searchParams.get("redirectTo") || "/";
   const actionData = useActionData() as ActionData;
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
@@ -97,7 +97,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="text-gray-700 block text-sm font-medium"
             >
               Email address
             </label>
@@ -112,10 +112,10 @@ export default function LoginPage() {
                 autoComplete="email"
                 aria-invalid={actionData?.errors?.email ? true : undefined}
                 aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="border-gray-500 w-full rounded border px-2 py-1 text-lg"
               />
               {actionData?.errors?.email && (
-                <div className="pt-1 text-red-700" id="email-error">
+                <div className="text-red-700 pt-1" id="email-error">
                   {actionData.errors.email}
                 </div>
               )}
@@ -125,7 +125,7 @@ export default function LoginPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="text-gray-700 block text-sm font-medium"
             >
               Password
             </label>
@@ -138,10 +138,10 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 aria-invalid={actionData?.errors?.password ? true : undefined}
                 aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                className="border-gray-500 w-full rounded border px-2 py-1 text-lg"
               />
               {actionData?.errors?.password && (
-                <div className="pt-1 text-red-700" id="password-error">
+                <div className="text-red-700 pt-1" id="password-error">
                   {actionData.errors.password}
                 </div>
               )}
@@ -151,7 +151,7 @@ export default function LoginPage() {
           <input type="hidden" name="redirectTo" value={redirectTo} />
           <button
             type="submit"
-            className="w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+            className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-400  w-full rounded py-2 px-4 text-white"
           >
             Log in
           </button>
@@ -161,16 +161,16 @@ export default function LoginPage() {
                 id="remember"
                 name="remember"
                 type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4 rounded"
               />
               <label
                 htmlFor="remember"
-                className="ml-2 block text-sm text-gray-900"
+                className="text-gray-900 ml-2 block text-sm"
               >
                 Remember me
               </label>
             </div>
-            <div className="text-center text-sm text-gray-500">
+            <div className="text-gray-500 text-center text-sm">
               Don't have an account?{" "}
               <Link
                 className="text-blue-500 underline"

@@ -85,7 +85,7 @@ function handleRequest(request, responseStatusCode, responseHeaders, remixContex
   });
 }
 
-// route:/Users/newll/Desktop/blog/app/root.tsx
+// route:/Users/newll/Desktop/portfolio/app/root.tsx
 var root_exports = {};
 __export(root_exports, {
   default: () => App,
@@ -97,7 +97,7 @@ var import_node2 = require("@remix-run/node");
 var import_react2 = require("@remix-run/react");
 
 // app/styles/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-4YK5TJ6G.css";
+var tailwind_default = "/build/_assets/tailwind-LVQMZOVM.css";
 
 // app/session.server.ts
 var import_node = require("@remix-run/node");
@@ -137,19 +137,16 @@ async function createUser(email, password) {
 }
 async function verifyLogin(email, password) {
   const userWithPassword = await prisma.user.findUnique({
-    where: { email },
-    include: {
-      password: true
-    }
+    where: { email }
   });
-  if (!userWithPassword || !userWithPassword.password) {
+  if (!userWithPassword || !userWithPassword.passwordHash) {
     return null;
   }
-  const isValid = await import_bcryptjs.default.compare(password, userWithPassword.password.hash);
+  const isValid = await import_bcryptjs.default.compare(password, userWithPassword.passwordHash);
   if (!isValid) {
     return null;
   }
-  const _a = userWithPassword, { password: _password } = _a, userWithoutPassword = __objRest(_a, ["password"]);
+  const _a = userWithPassword, { passwordHash: _password } = _a, userWithoutPassword = __objRest(_a, ["passwordHash"]);
   return userWithoutPassword;
 }
 
@@ -210,7 +207,7 @@ async function logout(request) {
   });
 }
 
-// route:/Users/newll/Desktop/blog/app/root.tsx
+// route:/Users/newll/Desktop/portfolio/app/root.tsx
 var links = () => {
   return [
     { rel: "stylesheet", href: tailwind_default },
@@ -239,7 +236,7 @@ function App() {
   }, /* @__PURE__ */ React.createElement(import_react2.Outlet, null), /* @__PURE__ */ React.createElement(import_react2.ScrollRestoration, null), /* @__PURE__ */ React.createElement(import_react2.Scripts, null), /* @__PURE__ */ React.createElement(import_react2.LiveReload, null)));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/healthcheck.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/healthcheck.tsx
 var healthcheck_exports = {};
 __export(healthcheck_exports, {
   loader: () => loader2
@@ -262,7 +259,7 @@ var loader2 = async ({ request }) => {
   }
 };
 
-// route:/Users/newll/Desktop/blog/app/routes/blog/$post.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/blog/$post.tsx
 var post_exports = {};
 __export(post_exports, {
   CatchBoundary: () => CatchBoundary,
@@ -312,7 +309,7 @@ function deletePost({ id }) {
   });
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/blog/$post.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/blog/$post.tsx
 var loader3 = async ({ request, params }) => {
   (0, import_tiny_invariant2.default)(params.post, "post not found");
   const post = await getPost({ id: params.post });
@@ -350,7 +347,7 @@ function CatchBoundary() {
   throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/blog/index.tsx
 var blog_exports = {};
 __export(blog_exports, {
   default: () => Index,
@@ -448,7 +445,7 @@ function formatDateTime(date) {
   return mm + " " + dd + " " + yyyy;
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/blog/index.tsx
 var import_server_runtime = require("@remix-run/server-runtime");
 var import_react9 = require("@remix-run/react");
 
@@ -520,7 +517,7 @@ function Blog({ posts }) {
   })));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/blog/index.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/blog/index.tsx
 var loader4 = async ({ request }) => {
   const posts = await getPostListItems();
   return (0, import_server_runtime.json)({ posts });
@@ -539,7 +536,7 @@ function Index() {
   })));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/logout.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/logout.tsx
 var logout_exports = {};
 __export(logout_exports, {
   action: () => action2,
@@ -553,7 +550,7 @@ var loader5 = async () => {
   return (0, import_node4.redirect)("/");
 };
 
-// route:/Users/newll/Desktop/blog/app/routes/index.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/index.tsx
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index2,
@@ -568,7 +565,7 @@ var author_photo_default = "/build/_assets/author_photo-YU27NVH4.jpg";
 // public/myDuo.png
 var myDuo_default = "/build/_assets/myDuo-PGYAQ65E.png";
 
-// route:/Users/newll/Desktop/blog/app/routes/index.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/index.tsx
 var SOCIAL = [
   {
     abbr: "GitHub",
@@ -678,7 +675,7 @@ function Index2() {
     href: project.link,
     className: "font-title text-3xl"
   }, project.title), /* @__PURE__ */ React.createElement("p", {
-    className: "font-text text-1xl my-3"
+    className: "font-text text-xl my-3"
   }, project.description), /* @__PURE__ */ React.createElement("p", null, "Technologies used: "), /* @__PURE__ */ React.createElement("ul", null, project.technologies.map((tech) => /* @__PURE__ */ React.createElement("li", {
     key: tech
   }, tech))))))), /* @__PURE__ */ React.createElement("section", {
@@ -693,7 +690,7 @@ function Index2() {
   }, "Say Hello")));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/login.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/login.tsx
 var login_exports = {};
 __export(login_exports, {
   action: () => action3,
@@ -744,7 +741,7 @@ var meta2 = () => {
 function LoginPage() {
   var _a, _b, _c, _d;
   const [searchParams] = (0, import_react11.useSearchParams)();
-  const redirectTo = searchParams.get("redirectTo") || "/notes";
+  const redirectTo = searchParams.get("redirectTo") || "/";
   const actionData = (0, import_react11.useActionData)();
   const emailRef = React2.useRef(null);
   const passwordRef = React2.useRef(null);
@@ -765,7 +762,7 @@ function LoginPage() {
     className: "space-y-6"
   }, /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("label", {
     htmlFor: "email",
-    className: "block text-sm font-medium text-gray-700"
+    className: "text-gray-700 block text-sm font-medium"
   }, "Email address"), /* @__PURE__ */ React2.createElement("div", {
     className: "mt-1"
   }, /* @__PURE__ */ React2.createElement("input", {
@@ -778,13 +775,13 @@ function LoginPage() {
     autoComplete: "email",
     "aria-invalid": ((_a = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _a.email) ? true : void 0,
     "aria-describedby": "email-error",
-    className: "w-full rounded border border-gray-500 px-2 py-1 text-lg"
+    className: "border-gray-500 w-full rounded border px-2 py-1 text-lg"
   }), ((_b = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _b.email) && /* @__PURE__ */ React2.createElement("div", {
-    className: "pt-1 text-red-700",
+    className: "text-red-700 pt-1",
     id: "email-error"
   }, actionData.errors.email))), /* @__PURE__ */ React2.createElement("div", null, /* @__PURE__ */ React2.createElement("label", {
     htmlFor: "password",
-    className: "block text-sm font-medium text-gray-700"
+    className: "text-gray-700 block text-sm font-medium"
   }, "Password"), /* @__PURE__ */ React2.createElement("div", {
     className: "mt-1"
   }, /* @__PURE__ */ React2.createElement("input", {
@@ -795,9 +792,9 @@ function LoginPage() {
     autoComplete: "current-password",
     "aria-invalid": ((_c = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _c.password) ? true : void 0,
     "aria-describedby": "password-error",
-    className: "w-full rounded border border-gray-500 px-2 py-1 text-lg"
+    className: "border-gray-500 w-full rounded border px-2 py-1 text-lg"
   }), ((_d = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _d.password) && /* @__PURE__ */ React2.createElement("div", {
-    className: "pt-1 text-red-700",
+    className: "text-red-700 pt-1",
     id: "password-error"
   }, actionData.errors.password))), /* @__PURE__ */ React2.createElement("input", {
     type: "hidden",
@@ -805,7 +802,7 @@ function LoginPage() {
     value: redirectTo
   }), /* @__PURE__ */ React2.createElement("button", {
     type: "submit",
-    className: "w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
+    className: "bg-blue-500 hover:bg-blue-600 focus:bg-blue-400  w-full rounded py-2 px-4 text-white"
   }, "Log in"), /* @__PURE__ */ React2.createElement("div", {
     className: "flex items-center justify-between"
   }, /* @__PURE__ */ React2.createElement("div", {
@@ -814,12 +811,12 @@ function LoginPage() {
     id: "remember",
     name: "remember",
     type: "checkbox",
-    className: "h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+    className: "border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4 rounded"
   }), /* @__PURE__ */ React2.createElement("label", {
     htmlFor: "remember",
-    className: "ml-2 block text-sm text-gray-900"
+    className: "text-gray-900 ml-2 block text-sm"
   }, "Remember me")), /* @__PURE__ */ React2.createElement("div", {
-    className: "text-center text-sm text-gray-500"
+    className: "text-gray-500 text-center text-sm"
   }, "Don't have an account?", " ", /* @__PURE__ */ React2.createElement(import_react11.Link, {
     className: "text-blue-500 underline",
     to: {
@@ -829,7 +826,7 @@ function LoginPage() {
   }, "Sign up"))))));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/join.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/join.tsx
 var join_exports = {};
 __export(join_exports, {
   action: () => action4,
@@ -955,7 +952,7 @@ function Join() {
   }, "Log in"))))));
 }
 
-// route:/Users/newll/Desktop/blog/app/routes/new.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/new.tsx
 var new_exports = {};
 __export(new_exports, {
   action: () => action5,
@@ -968,25 +965,44 @@ var import_react17 = require("@remix-run/react");
 var import_react16 = require("react");
 
 // app/modules/editor/components/input-block.tsx
-var import_react13 = require("react");
 function StudyInput({
   initialValue,
   placeholder,
   refName,
   name
 }) {
-  const [value, setValue] = (0, import_react13.useState)(initialValue);
   return /* @__PURE__ */ React.createElement("input", {
     type: "text",
-    value,
-    onChange: (event) => {
-      setValue(event.target.value);
-    },
+    defaultValue: initialValue,
     placeholder,
-    className: "mb-5 w-full text-xl focus:outline-none",
+    className: "w-full focus:outline-none",
     ref: refName,
-    name
+    name,
+    autoComplete: "off"
   });
+}
+
+// app/modules/editor/components/input-image.tsx
+var import_react13 = require("react");
+function InputImage() {
+  const [img, setImg] = (0, import_react13.useState)({ src: "", alt: "" });
+  return /* @__PURE__ */ React.createElement(import_react13.Fragment, null, /* @__PURE__ */ React.createElement("input", {
+    className: img.src && "hidden",
+    type: "file",
+    name: "image",
+    onChange: (event) => {
+      if (event.target.files && event.target.files[0]) {
+        const img2 = event.target.files[0];
+        setImg({
+          src: URL.createObjectURL(img2),
+          alt: event.target.files[0].name
+        });
+      }
+    }
+  }), /* @__PURE__ */ React.createElement("img", {
+    src: img.src,
+    alt: img.alt
+  }));
 }
 
 // app/modules/editor/components/text-block/text-block.tsx
@@ -996,7 +1012,8 @@ function TextBlock({
   initialValue = "",
   refName,
   name,
-  setFocusOnPreviousContent
+  setFocusOnPreviousContent,
+  addContent
 }) {
   const [value, setValue] = (0, import_react14.useState)(initialValue);
   (0, import_react14.useEffect)(() => {
@@ -1004,6 +1021,20 @@ function TextBlock({
       refName.target.style.height = `${refName.target.scrollHeight}px`;
     }
   }, [refName, value]);
+  (0, import_react14.useEffect)(() => {
+    if (value.startsWith("# ")) {
+      setValue("");
+      addContent({ tag: "h1", value: "" });
+    }
+    if (value.startsWith("## ")) {
+      setValue("");
+      addContent({ tag: "h2", value: "" });
+    }
+    if (value.startsWith("### ")) {
+      setValue("");
+      addContent({ tag: "h3", value: "" });
+    }
+  }, [value, addContent]);
   return /* @__PURE__ */ React.createElement(import_react_textarea_autosize.default, {
     minRows: 1,
     ref: refName,
@@ -1014,10 +1045,11 @@ function TextBlock({
     onKeyDown: (evt) => {
       const target = evt.target;
       if (evt.code === "Backspace" && target.value.length === 0) {
+        evt.preventDefault();
         setFocusOnPreviousContent();
       }
     },
-    className: "mb-5 w-full text-xl focus:outline-none",
+    className: "w-full text-xl focus:outline-none resize-none",
     name,
     onFocus: (e) => {
       e.target.placeholder = `Type '/' for commands`;
@@ -1028,15 +1060,37 @@ function TextBlock({
 }
 
 // app/modules/editor/components/content-block.tsx
-function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent) {
+function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent) {
   switch (tag) {
     case "h1":
-      return /* @__PURE__ */ React.createElement("h1", null, /* @__PURE__ */ React.createElement(StudyInput, {
+      return /* @__PURE__ */ React.createElement("h1", {
+        className: "font-title text-3xl"
+      }, /* @__PURE__ */ React.createElement(StudyInput, {
         initialValue: value,
-        placeholder: "Enter main title",
+        placeholder: "Heading 1",
         name: tag,
         refName
       }));
+    case "h2":
+      return /* @__PURE__ */ React.createElement("h2", {
+        className: "font-title text-2xl"
+      }, /* @__PURE__ */ React.createElement(StudyInput, {
+        initialValue: value,
+        placeholder: "Heading 2",
+        name: tag,
+        refName
+      }));
+    case "h3":
+      return /* @__PURE__ */ React.createElement("h3", {
+        className: "font-title text-xl"
+      }, /* @__PURE__ */ React.createElement(StudyInput, {
+        initialValue: value,
+        placeholder: "Heading 3",
+        name: tag,
+        refName
+      }));
+    case "img":
+      return /* @__PURE__ */ React.createElement(InputImage, null);
     case "p":
       return /* @__PURE__ */ React.createElement("p", {
         style: { margin: 0 }
@@ -1044,13 +1098,15 @@ function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusO
         initialValue: value,
         refName,
         name: tag,
-        setFocusOnPreviousContent
+        setFocusOnPreviousContent,
+        addContent
       }));
     case "div":
       return /* @__PURE__ */ React.createElement(TextBlock, {
         refName,
         name: "space",
-        setFocusOnPreviousContent
+        setFocusOnPreviousContent,
+        addContent
       });
     default:
       throw new Error(`Unkown tag name: ${tag}`);
@@ -1062,6 +1118,7 @@ function ContentBlock({
   refName,
   onRemove,
   addSpace,
+  addContent,
   setFocusOnPreviousContent,
   setFocusOnNextContent
 }) {
@@ -1080,8 +1137,8 @@ function ContentBlock({
       }
     },
     tabIndex: 0,
-    style: { position: "relative" }
-  }, formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent));
+    className: "mb-3 relative"
+  }, formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent));
 }
 
 // app/modules/editor/reducer.ts
@@ -1157,21 +1214,25 @@ function TextareaBlock({
     (_a = ref.current) == null ? void 0 : _a.focus();
   }, []);
   (0, import_react15.useEffect)(() => {
-    const match = /\r|\n/.exec(value);
-    if (match) {
-      if (value.length === 1) {
-        addSpace();
-      } else {
-        addContent({ tag: "p", value, idx: null });
-      }
-      setValue("");
-    }
     if (value.startsWith("# ")) {
       setValue("");
       addContent({ tag: "h1", value: "" });
     }
-  }, [value, addContent, setFocusOnLastContent]);
+    if (value.startsWith("## ")) {
+      setValue("");
+      addContent({ tag: "h2", value: "" });
+    }
+    if (value.startsWith("### ")) {
+      setValue("");
+      addContent({ tag: "h3", value: "" });
+    }
+    if (value.startsWith("/img ")) {
+      setValue("");
+      addContent({ tag: "img", value: "" });
+    }
+  }, [value, addContent]);
   return /* @__PURE__ */ React.createElement(import_react_textarea_autosize2.default, {
+    style: { paddingLeft: 20, marginLeft: -20 },
     ref,
     value,
     onChange: (evt) => {
@@ -1180,10 +1241,20 @@ function TextareaBlock({
     onKeyDown: (evt) => {
       const target = evt.target;
       if (evt.code === "Backspace" && target.value.length === 0) {
+        evt.preventDefault();
         setFocusOnLastContent();
       }
+      if (evt.code === "Enter") {
+        evt.preventDefault();
+        if (value.length === 1) {
+          addSpace();
+        } else {
+          addContent({ tag: "p", value: evt.target.value, idx: null });
+        }
+        setValue("");
+      }
     },
-    className: "mb-5 w-full resize-none text-xl focus:outline-none",
+    className: "w-full resize-none text-xl focus:outline-none",
     onFocus: (e) => e.target.placeholder = `Type '/' for commands`,
     onBlur: (e) => {
       addBlur();
@@ -1212,8 +1283,11 @@ var Editor = ({ data }) => {
     setFocusOn(focusIndex);
   }, [focusIndex]);
   function setFocusOn(idx) {
-    var _a;
-    (_a = itemsRef.current[idx]) == null ? void 0 : _a.focus();
+    var _a, _b;
+    if (!itemsRef.current[idx]) {
+      return (_a = itemsRef.current[idx - 1]) == null ? void 0 : _a.focus();
+    }
+    return (_b = itemsRef.current[idx]) == null ? void 0 : _b.focus();
   }
   function setFocusOnLastContent() {
     var _a;
@@ -1245,6 +1319,7 @@ var Editor = ({ data }) => {
       addSpace: () => {
         dispatch({ type: "ADD_SPACE" /* AddSpace */, payload: { idx } });
       },
+      addContent: (payload) => dispatch({ type: "ADD_CONTENT" /* AddContent */, payload }),
       refName: (el) => itemsRef.current[idx] = el,
       setFocusOnNextContent: () => setFocusOnNextContent(idx),
       setFocusOnPreviousContent: () => setFocusOnPreviousContent(idx)
@@ -1268,7 +1343,7 @@ var Editor = ({ data }) => {
   }));
 };
 
-// route:/Users/newll/Desktop/blog/app/routes/new.tsx
+// route:/Users/newll/Desktop/portfolio/app/routes/new.tsx
 var action5 = async ({ request }) => {
   const formData = await request.formData();
   const title = formData.get("title");
@@ -1316,7 +1391,7 @@ function NewPostPage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { "version": "73fd49ae", "entry": { "module": "/build/entry.client-N66XTCW7.js", "imports": ["/build/_shared/chunk-54VPSM24.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-PJI4FUTL.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-ZY4SCDAV.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-HHAXCJS7.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-QPR2OL7H.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-5B54VULO.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-3AYB5F3S.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-MQSWOFAO.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OYEYRJOD.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-FWNED4EK.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-73FD49AE.js" };
+var assets_manifest_default = { "version": "0e48fdef", "entry": { "module": "/build/entry.client-N66XTCW7.js", "imports": ["/build/_shared/chunk-54VPSM24.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-TQLHJLUZ.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-4F3Z4R77.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-YMARW7SD.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-OWD5RCQB.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-BJVZS73I.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-UKXERSKM.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-QLUYJO2D.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OP4LACLI.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-6OANUCMP.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-0E48FDEF.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports };

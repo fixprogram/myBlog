@@ -1,5 +1,5 @@
 import { Form } from "@remix-run/react";
-import { useReducer, useRef, useEffect } from "react";
+import { useReducer, useRef, useEffect, Fragment } from "react";
 import ContentBlock from "./components/content-block";
 import { reducer, initialState, ActionKind } from "./reducer";
 import TextareaBlock from "./components/textarea-block/textarea-block";
@@ -32,7 +32,10 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
   }, [focusIndex]);
 
   function setFocusOn(idx: number) {
-    itemsRef.current[idx]?.focus();
+    if(!itemsRef.current[idx]) {
+      return itemsRef.current[idx-1]?.focus()
+    }
+    return itemsRef.current[idx]?.focus();
   }
 
   function setFocusOnLastContent() {
@@ -58,6 +61,7 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
             tag={tag}
             value={value}
             key={idx + value}
+          
             onRemove={() => {
               dispatch({
                 type: ActionKind.RemoveContent,
@@ -68,6 +72,9 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
               dispatch({ type: ActionKind.AddSpace, payload: { idx } });
               // setFocusOnNextContent(idx);
             }}
+            addContent={(payload: any) =>
+              dispatch({ type: ActionKind.AddContent, payload })
+            }
             refName={(el: any) => (itemsRef.current[idx] = el)}
             setFocusOnNextContent={() => setFocusOnNextContent(idx)}
             setFocusOnPreviousContent={() => setFocusOnPreviousContent(idx)}
@@ -76,6 +83,16 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
       })}
 
       {onText ? (
+        // <div style={{position: 'relative'}}>
+        // <button className="" onClick={() => {
+        //   console.log('1')
+        //   dispatch({
+        //         type: ActionKind.AddSpace,
+        //         payload: { idx: focusIndex },
+        //       })} 
+        //     } 
+        //     style={{position: 'absolute', left: -20, top: 1, cursor: 'pointer', zIndex: 999}}
+        //     >+</button>
         <TextareaBlock
           addContent={(payload: any) =>
             dispatch({ type: ActionKind.AddContent, payload })
@@ -88,8 +105,8 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
           }
           addBlur={() => {dispatch({type: ActionKind.Blur})}}
           setFocusOnLastContent={setFocusOnLastContent}
-          height={"calc(100vh - 95px"}
-        />
+          height={"calc(100vh - 95px"} />
+        // /></div>
       ) : (
         <div
           style={{ height: "80vh", cursor: 'text' }}

@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import StudyInput from "./input-block";
+import InputImage from "./input-image";
 import TextBlock from "./text-block/text-block";
 
 function formatContent(
@@ -6,20 +8,47 @@ function formatContent(
   value: any,
   refName: any,
   setFocusOnPreviousContent: Function,
-  setFocusOnNextContent: Function
+  setFocusOnNextContent: Function,
+  addContent: Function
 ) {
   switch (tag) {
     case "h1":
       return (
-        <h1>
+        <h1 className="font-title text-3xl">
           <StudyInput
             initialValue={value}
-            placeholder="Enter main title"
+            placeholder="Heading 1"
             name={tag}
             refName={refName}
           />
         </h1>
       );
+    case 'h2':
+      return (
+        <h2 className="font-title text-2xl">
+          <StudyInput
+            initialValue={value}
+            placeholder="Heading 2"
+            name={tag}
+            refName={refName}
+          />
+        </h2>
+      )
+    case 'h3':
+      return (
+        <h3 className="font-title text-xl">
+          <StudyInput
+            initialValue={value}
+            placeholder="Heading 3"
+            name={tag}
+            refName={refName}
+          />
+        </h3>
+      )
+    case 'img': 
+        return (
+          <InputImage />
+        )
     case "p":
       return (
         <p style={{ margin: 0 }}>
@@ -28,6 +57,7 @@ function formatContent(
             refName={refName}
             name={tag}
             setFocusOnPreviousContent={setFocusOnPreviousContent}
+            addContent={addContent}
             // setFocusOnNextContent={setFocusOnNextContent}
           />
         </p>
@@ -38,6 +68,7 @@ function formatContent(
           refName={refName}
           name={"space"}
           setFocusOnPreviousContent={setFocusOnPreviousContent}
+          addContent={addContent}
           // setFocusOnNextContent={setFocusOnNextContent}
         />
       );
@@ -52,6 +83,7 @@ export default function ContentBlock({
   refName,
   onRemove,
   addSpace,
+  addContent,
   setFocusOnPreviousContent,
   setFocusOnNextContent,
 }: {
@@ -60,6 +92,7 @@ export default function ContentBlock({
   refName: any;
   onRemove: Function;
   addSpace: Function;
+  addContent: Function,
   setFocusOnPreviousContent: Function;
   setFocusOnNextContent: Function;
 }) {
@@ -80,14 +113,15 @@ export default function ContentBlock({
         }
       }}
       tabIndex={0}
-      style={{ position: "relative" }}
+      className="mb-3 relative"
     >
       {formatContent(
         tag,
         value,
         refName,
         setFocusOnPreviousContent,
-        setFocusOnNextContent
+        setFocusOnNextContent,
+        addContent
       )}
     </div>
   );

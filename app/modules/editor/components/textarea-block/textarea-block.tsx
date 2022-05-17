@@ -19,25 +19,30 @@ export default function TextareaBlock({
   }, []);
 
   useEffect(() => {
-    const match = /\r|\n/.exec(value);
-
-    if (match) {
-      if (value.length === 1) {
-        addSpace();
-      } else {
-        addContent({ tag: "p", value: value, idx: null });
-      }
-      setValue("");
-    }
-
     if (value.startsWith("# ")) {
       setValue("");
       addContent({ tag: "h1", value: "" });
     }
-  }, [value, addContent, setFocusOnLastContent]);
+
+    if (value.startsWith("## ")) {
+      setValue("");
+      addContent({ tag: "h2", value: "" });
+    }
+
+    if (value.startsWith("### ")) {
+      setValue("");
+      addContent({ tag: "h3", value: "" });
+    }
+
+    if (value.startsWith("/img ")) {
+      setValue("");
+      addContent({ tag: "img", value: "" });
+    }
+  }, [value, addContent]);
 
   return (
     <TextareaAutosize
+    style={{paddingLeft: 20, marginLeft: -20}}
       ref={ref}
       value={value}
       onChange={(evt) => {
@@ -46,10 +51,20 @@ export default function TextareaBlock({
       onKeyDown={(evt) => {
         const target = evt.target as HTMLInputElement;
         if (evt.code === "Backspace" && target.value.length === 0) {
+          evt.preventDefault()
           setFocusOnLastContent();
         }
+        if(evt.code === 'Enter') {
+          evt.preventDefault()
+          if (value.length === 1) {
+            addSpace();
+          } else {
+            addContent({ tag: "p", value: evt.target.value, idx: null });
+          }
+          setValue("");
+        }
       }}
-      className="mb-5 w-full resize-none text-xl focus:outline-none"
+      className="w-full resize-none text-xl focus:outline-none"
       onFocus={(e) => (e.target.placeholder = `Type '/' for commands`)}
       onBlur={(e) => {
         addBlur()

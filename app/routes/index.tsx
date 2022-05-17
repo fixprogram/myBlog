@@ -129,7 +129,7 @@ export default function Index() {
           </a>
           <div className="pl-5">
             <a href={project.link} className="font-title text-3xl">{project.title}</a>
-            <p className="font-text text-1xl my-3">{project.description}</p>
+            <p className="font-text text-xl my-3">{project.description}</p>
             <p>Technologies used: </p>
             <ul>
               {project.technologies.map(tech => <li key={tech}>{tech}</li>)}

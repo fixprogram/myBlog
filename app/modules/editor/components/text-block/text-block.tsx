@@ -6,11 +6,13 @@ export default function TextBlock({
   refName,
   name,
   setFocusOnPreviousContent,
+  addContent
 }: {
   initialValue?: string;
   refName: any;
   name: string;
   setFocusOnPreviousContent: Function;
+  addContent: Function
 }) {
   const [value, setValue] = useState(initialValue);
 
@@ -19,6 +21,23 @@ export default function TextBlock({
       refName.target.style.height = `${refName.target.scrollHeight}px`;
     }
   }, [refName, value]);
+
+  useEffect(() => {
+    if (value.startsWith("# ")) {
+      setValue("");
+      addContent({ tag: "h1", value: "" });
+    }
+
+    if (value.startsWith("## ")) {
+      setValue("");
+      addContent({ tag: "h2", value: "" });
+    }
+
+    if (value.startsWith("### ")) {
+      setValue("");
+      addContent({ tag: "h3", value: "" });
+    }
+  }, [value, addContent]);
 
   return (
     <TextareaAutosize
@@ -31,14 +50,14 @@ export default function TextBlock({
       onKeyDown={(evt) => {
         const target = evt.target as HTMLInputElement;
         if (evt.code === "Backspace" && target.value.length === 0) {
+          evt.preventDefault()
           setFocusOnPreviousContent();
         }
       }}
-      className="mb-5 w-full text-xl focus:outline-none"
+      className="w-full text-xl focus:outline-none resize-none"
       name={name}
       onFocus={(e) => {
         e.target.placeholder = `Type '/' for commands`;
-
         return e.currentTarget.setSelectionRange(
           e.currentTarget.value.length,
           e.currentTarget.value.length

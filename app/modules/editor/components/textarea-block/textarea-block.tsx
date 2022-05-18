@@ -5,12 +5,12 @@ export default function TextareaBlock({
   addContent,
   addSpace,
   setFocusOnLastContent,
-  addBlur
+  addBlur,
 }: {
-  addContent: Function,
-  addSpace: Function,
-  setFocusOnLastContent: Function,
-  addBlur: Function,
+  addContent: Function;
+  addSpace: Function;
+  setFocusOnLastContent: Function;
+  addBlur: Function;
 }) {
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement | null>(null);
@@ -38,11 +38,16 @@ export default function TextareaBlock({
       setValue("");
       addContent({ tag: "img", value: "" });
     }
+
+    if (value.startsWith("/code ")) {
+      setValue("");
+      addContent({ tag: "code", value: "" });
+    }
   }, [value, addContent]);
 
   return (
     <TextareaAutosize
-    style={{paddingLeft: 20, marginLeft: -20}}
+      style={{ paddingLeft: 20, marginLeft: -20 }}
       ref={ref}
       value={value}
       onChange={(evt) => {
@@ -51,11 +56,11 @@ export default function TextareaBlock({
       onKeyDown={(evt) => {
         const target = evt.target as HTMLInputElement;
         if (evt.code === "Backspace" && target.value.length === 0) {
-          evt.preventDefault()
+          evt.preventDefault();
           setFocusOnLastContent();
         }
-        if(evt.code === 'Enter') {
-          evt.preventDefault()
+        if (evt.code === "Enter") {
+          evt.preventDefault();
           if (value.length === 1) {
             addSpace();
           } else {
@@ -67,9 +72,9 @@ export default function TextareaBlock({
       className="w-full resize-none text-xl focus:outline-none"
       onFocus={(e) => (e.target.placeholder = `Type '/' for commands`)}
       onBlur={(e) => {
-        addBlur()
-        return e.target.placeholder = ""
-        }}
+        addBlur();
+        return (e.target.placeholder = "");
+      }}
     />
   );
 }

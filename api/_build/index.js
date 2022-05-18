@@ -97,7 +97,7 @@ var import_node2 = require("@remix-run/node");
 var import_react2 = require("@remix-run/react");
 
 // app/styles/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-LVQMZOVM.css";
+var tailwind_default = "/build/_assets/tailwind-POZ6USC4.css";
 
 // app/session.server.ts
 var import_node = require("@remix-run/node");
@@ -271,6 +271,9 @@ __export(post_exports, {
 var import_node3 = require("@remix-run/node");
 var import_react3 = require("@remix-run/react");
 var import_tiny_invariant2 = __toESM(require("tiny-invariant"));
+var import_react_syntax_highlighter = __toESM(require("react-syntax-highlighter"));
+var import_docco = require("react-syntax-highlighter/dist/cjs/styles/hljs/docco");
+var import_html_entities = require("html-entities");
 
 // app/models/post.server.ts
 function getPost({ id }) {
@@ -309,7 +312,39 @@ function deletePost({ id }) {
   });
 }
 
+// app/modules/blog/media/test.png
+var test_default = "/build/_assets/test-ZDVCWVVD.png";
+
+// public/logo.svg
+var logo_default = "/build/_assets/logo-XDBE6HHO.svg";
+
 // route:/Users/newll/Desktop/portfolio/app/routes/blog/$post.tsx
+function parseHTML(tag, value) {
+  switch (tag) {
+    case "p":
+      return /* @__PURE__ */ React.createElement("p", null, value);
+    case "h1":
+      return /* @__PURE__ */ React.createElement("h1", null, value);
+    case "h2":
+      return /* @__PURE__ */ React.createElement("h2", null, value);
+    case "h3":
+      return /* @__PURE__ */ React.createElement("h3", null, value);
+    case "img":
+      return /* @__PURE__ */ React.createElement("img", {
+        src: value,
+        alt: value
+      });
+    case "div":
+      return /* @__PURE__ */ React.createElement("div", null, value);
+    case "code":
+      return /* @__PURE__ */ React.createElement(import_react_syntax_highlighter.default, {
+        language: "javascript",
+        style: import_docco.docco
+      }, (0, import_html_entities.decode)(value));
+    default:
+      throw new Error(`We don't know this tag: ${tag}`);
+  }
+}
 var loader3 = async ({ request, params }) => {
   (0, import_tiny_invariant2.default)(params.post, "post not found");
   const post = await getPost({ id: params.post });
@@ -325,15 +360,40 @@ var action = async ({ request, params }) => {
 };
 function NoteDetailsPage() {
   const { post } = (0, import_react3.useLoaderData)();
-  return /* @__PURE__ */ React.createElement("section", {
-    className: "mx-20 p-20"
+  return /* @__PURE__ */ React.createElement("div", {
+    className: "bg-white"
+  }, /* @__PURE__ */ React.createElement("section", {
+    className: "mx-auto max-w-[57%]"
+  }, /* @__PURE__ */ React.createElement("header", {
+    className: "relative h-16 w-full"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "fixed z-40 flex h-20 w-full justify-between bg-white"
+  }, /* @__PURE__ */ React.createElement("nav", {
+    className: "m-auto w-full items-center justify-between px-5 md:flex "
+  }, /* @__PURE__ */ React.createElement(import_react3.Link, {
+    to: "/"
+  }, /* @__PURE__ */ React.createElement("img", {
+    src: logo_default,
+    alt: "Logotype",
+    width: "40",
+    height: "40"
+  }))))), /* @__PURE__ */ React.createElement("main", {
+    className: "w-full"
   }, /* @__PURE__ */ React.createElement("article", {
-    className: "mx-20"
+    className: "px-5 pt-12 pb-28"
   }, /* @__PURE__ */ React.createElement("h1", {
-    className: "text-3xl font-bold"
-  }, post.title), /* @__PURE__ */ React.createElement("p", {
-    className: "py-6"
-  }, post.content)));
+    className: "text-3xl font-bold capitalize text-black"
+  }, post.title), post.tags.map((tag) => /* @__PURE__ */ React.createElement("small", {
+    key: tag,
+    className: "pointer mt-3 mr-3 inline-block rounded-sm bg-yellow px-1.5 text-sm text-black"
+  }, tag)), /* @__PURE__ */ React.createElement("img", {
+    src: test_default,
+    alt: "Test",
+    className: "my-10"
+  }), post.content.map((contentItem) => /* @__PURE__ */ React.createElement("div", {
+    key: contentItem.id,
+    className: "my-4 text-base	leading-7	"
+  }, parseHTML(contentItem.tag, contentItem.value)))))));
 }
 function ErrorBoundary({ error }) {
   console.error(error);
@@ -356,11 +416,6 @@ __export(blog_exports, {
 
 // app/components/menu.tsx
 var import_react4 = require("@remix-run/react");
-
-// public/logo.svg
-var logo_default = "/build/_assets/logo-XDBE6HHO.svg";
-
-// app/components/menu.tsx
 var MENU = [
   {
     name: "About",
@@ -502,14 +557,15 @@ function Blog({ posts }) {
   }, tag))))), /* @__PURE__ */ React.createElement("div", {
     className: "flex w-full max-w-3xl flex-wrap divide-y-2"
   }, posts.map(({ id, title, content, createdAt, tags }) => {
+    var _a;
     if (activeFilter === "all" || tags.includes(activeFilter)) {
       return title.includes(search) && /* @__PURE__ */ React.createElement("div", {
-        className: "w-full mb-4 py-4",
+        className: "mb-4 w-full py-4",
         key: id
       }, /* @__PURE__ */ React.createElement(BlogPost, {
         to: id,
         title,
-        description: content,
+        description: (_a = content[0]) == null ? void 0 : _a.value,
         createdAt: formatDateTime(new Date(createdAt)),
         tags
       }));
@@ -549,6 +605,9 @@ var action2 = async ({ request }) => {
 var loader5 = async () => {
   return (0, import_node4.redirect)("/");
 };
+
+// route:/Users/newll/Desktop/portfolio/app/routes/upload.tsx
+var upload_exports = {};
 
 // route:/Users/newll/Desktop/portfolio/app/routes/index.tsx
 var routes_exports = {};
@@ -615,7 +674,7 @@ function Index2() {
   const { posts } = (0, import_react10.useLoaderData)();
   const user = useOptionalUser();
   return /* @__PURE__ */ React.createElement("main", {
-    className: "bg-whip px-14 pt-7 min-h-screen"
+    className: "min-h-screen bg-whip px-14 pt-7"
   }, /* @__PURE__ */ React.createElement(Menu, {
     user
   }), /* @__PURE__ */ React.createElement("section", {
@@ -647,16 +706,19 @@ function Index2() {
     className: "font-title text-4xl"
   }, "Latest Posts"), /* @__PURE__ */ React.createElement("div", {
     className: "flex flex-wrap justify-between"
-  }, posts.map(({ id, title, content, createdAt, tags }) => /* @__PURE__ */ React.createElement("div", {
-    className: "mt-12 w-full max-w-lg",
-    key: id
-  }, /* @__PURE__ */ React.createElement(BlogPost, {
-    to: `blog/${id}`,
-    title,
-    description: content,
-    createdAt: formatDateTime(new Date(createdAt)),
-    tags
-  }))))), /* @__PURE__ */ React.createElement("section", {
+  }, posts.map(({ id, title, content, createdAt, tags }) => {
+    var _a;
+    return /* @__PURE__ */ React.createElement("div", {
+      className: "mt-12 w-full max-w-lg",
+      key: id
+    }, /* @__PURE__ */ React.createElement(BlogPost, {
+      to: `blog/${id}`,
+      title,
+      description: (_a = content[0]) == null ? void 0 : _a.value,
+      createdAt: formatDateTime(new Date(createdAt)),
+      tags
+    }));
+  }))), /* @__PURE__ */ React.createElement("section", {
     className: "my-20 p-20"
   }, /* @__PURE__ */ React.createElement("h2", {
     className: "mb-10 font-title text-4xl"
@@ -675,18 +737,18 @@ function Index2() {
     href: project.link,
     className: "font-title text-3xl"
   }, project.title), /* @__PURE__ */ React.createElement("p", {
-    className: "font-text text-xl my-3"
+    className: "my-3 font-text text-xl"
   }, project.description), /* @__PURE__ */ React.createElement("p", null, "Technologies used: "), /* @__PURE__ */ React.createElement("ul", null, project.technologies.map((tech) => /* @__PURE__ */ React.createElement("li", {
     key: tech
   }, tech))))))), /* @__PURE__ */ React.createElement("section", {
-    className: "my-20 p-20 flex flex-col justify-center"
+    className: "my-20 flex flex-col justify-center p-20"
   }, /* @__PURE__ */ React.createElement("h2", {
-    className: "mb-10 font-title text-4xl text-center"
+    className: "mb-10 text-center font-title text-4xl"
   }, "Get In Touch"), /* @__PURE__ */ React.createElement("p", {
-    className: "text-center mb-8"
+    className: "mb-8 text-center"
   }, "Currently I'm looking for a job as Frontend or Fullstack web developer."), /* @__PURE__ */ React.createElement("a", {
     href: "mailto:qepttt@gmail.com",
-    className: "mx-auto p-5 bg-red text-white font-semibold"
+    className: "mx-auto bg-red p-5 font-semibold text-white"
   }, "Say Hello")));
 }
 
@@ -956,13 +1018,65 @@ function Join() {
 var new_exports = {};
 __export(new_exports, {
   action: () => action5,
-  default: () => NewPostPage
+  default: () => NewPostPage,
+  fileUploadHandler: () => fileUploadHandler
 });
 var import_node7 = require("@remix-run/node");
-var import_react17 = require("@remix-run/react");
+var import_node8 = require("@remix-run/node");
+var import_react18 = require("@remix-run/react");
+var import_nanoid2 = require("nanoid");
 
 // app/modules/editor/index.tsx
-var import_react16 = require("react");
+var import_react17 = require("react");
+
+// app/modules/editor/components/code-block/code-block.tsx
+var import_react13 = require("react");
+var import_react_textarea_autosize = __toESM(require("react-textarea-autosize"));
+var import_react_syntax_highlighter2 = __toESM(require("react-syntax-highlighter"));
+var import_docco2 = require("react-syntax-highlighter/dist/cjs/styles/hljs/docco");
+var import_html_entities2 = require("html-entities");
+function CodeBlock({
+  initialValue = "",
+  refName,
+  name,
+  setFocusOnPreviousContent,
+  addContent
+}) {
+  const [value, setValue] = (0, import_react13.useState)(initialValue);
+  const [decodedValue, setDecodedValue] = (0, import_react13.useState)(initialValue);
+  (0, import_react13.useEffect)(() => {
+    if (refName.target) {
+      refName.target.style.height = `${refName.target.scrollHeight}px`;
+    }
+  }, [refName, value]);
+  return /* @__PURE__ */ React.createElement(import_react13.Fragment, null, /* @__PURE__ */ React.createElement("input", {
+    type: "hidden",
+    name,
+    value: (0, import_html_entities2.encode)(value)
+  }), /* @__PURE__ */ React.createElement(import_react_textarea_autosize.default, {
+    minRows: 1,
+    ref: refName,
+    value,
+    onChange: (evt) => {
+      setValue(evt.target.value);
+    },
+    onKeyDown: (evt) => {
+      const target = evt.target;
+      if (evt.code === "Backspace" && target.value.length === 0) {
+        evt.preventDefault();
+        setFocusOnPreviousContent();
+      }
+    },
+    className: "w-full resize-none text-xl focus:outline-none",
+    onFocus: (e) => {
+      return e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length);
+    },
+    onBlur: (e) => e.target.placeholder = ""
+  }), /* @__PURE__ */ React.createElement(import_react_syntax_highlighter2.default, {
+    language: "javascript",
+    style: import_docco2.docco
+  }, value));
+}
 
 // app/modules/editor/components/input-block.tsx
 function StudyInput({
@@ -983,13 +1097,13 @@ function StudyInput({
 }
 
 // app/modules/editor/components/input-image.tsx
-var import_react13 = require("react");
-function InputImage() {
-  const [img, setImg] = (0, import_react13.useState)({ src: "", alt: "" });
-  return /* @__PURE__ */ React.createElement(import_react13.Fragment, null, /* @__PURE__ */ React.createElement("input", {
+var import_react14 = require("react");
+function InputImage({ name }) {
+  const [img, setImg] = (0, import_react14.useState)({ src: "", alt: "" });
+  return /* @__PURE__ */ React.createElement(import_react14.Fragment, null, /* @__PURE__ */ React.createElement("input", {
     className: img.src && "hidden",
     type: "file",
-    name: "image",
+    name,
     onChange: (event) => {
       if (event.target.files && event.target.files[0]) {
         const img2 = event.target.files[0];
@@ -1006,8 +1120,8 @@ function InputImage() {
 }
 
 // app/modules/editor/components/text-block/text-block.tsx
-var import_react14 = require("react");
-var import_react_textarea_autosize = __toESM(require("react-textarea-autosize"));
+var import_react15 = require("react");
+var import_react_textarea_autosize2 = __toESM(require("react-textarea-autosize"));
 function TextBlock({
   initialValue = "",
   refName,
@@ -1015,13 +1129,13 @@ function TextBlock({
   setFocusOnPreviousContent,
   addContent
 }) {
-  const [value, setValue] = (0, import_react14.useState)(initialValue);
-  (0, import_react14.useEffect)(() => {
+  const [value, setValue] = (0, import_react15.useState)(initialValue);
+  (0, import_react15.useEffect)(() => {
     if (refName.target) {
       refName.target.style.height = `${refName.target.scrollHeight}px`;
     }
   }, [refName, value]);
-  (0, import_react14.useEffect)(() => {
+  (0, import_react15.useEffect)(() => {
     if (value.startsWith("# ")) {
       setValue("");
       addContent({ tag: "h1", value: "" });
@@ -1035,7 +1149,7 @@ function TextBlock({
       addContent({ tag: "h3", value: "" });
     }
   }, [value, addContent]);
-  return /* @__PURE__ */ React.createElement(import_react_textarea_autosize.default, {
+  return /* @__PURE__ */ React.createElement(import_react_textarea_autosize2.default, {
     minRows: 1,
     ref: refName,
     value,
@@ -1060,7 +1174,7 @@ function TextBlock({
 }
 
 // app/modules/editor/components/content-block.tsx
-function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent) {
+function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent, id) {
   switch (tag) {
     case "h1":
       return /* @__PURE__ */ React.createElement("h1", {
@@ -1068,7 +1182,7 @@ function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusO
       }, /* @__PURE__ */ React.createElement(StudyInput, {
         initialValue: value,
         placeholder: "Heading 1",
-        name: tag,
+        name: "h1",
         refName
       }));
     case "h2":
@@ -1077,7 +1191,7 @@ function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusO
       }, /* @__PURE__ */ React.createElement(StudyInput, {
         initialValue: value,
         placeholder: "Heading 2",
-        name: tag,
+        name: "h2",
         refName
       }));
     case "h3":
@@ -1086,28 +1200,38 @@ function formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusO
       }, /* @__PURE__ */ React.createElement(StudyInput, {
         initialValue: value,
         placeholder: "Heading 3",
-        name: tag,
+        name: "h3",
         refName
       }));
     case "img":
-      return /* @__PURE__ */ React.createElement(InputImage, null);
+      return /* @__PURE__ */ React.createElement(InputImage, {
+        name: id
+      });
     case "p":
       return /* @__PURE__ */ React.createElement("p", {
         style: { margin: 0 }
       }, /* @__PURE__ */ React.createElement(TextBlock, {
         initialValue: value,
         refName,
-        name: tag,
+        name: "p",
         setFocusOnPreviousContent,
         addContent
       }));
     case "div":
       return /* @__PURE__ */ React.createElement(TextBlock, {
         refName,
-        name: "space",
+        name: "div",
         setFocusOnPreviousContent,
         addContent
       });
+    case "code":
+      return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(CodeBlock, {
+        initialValue: value,
+        refName,
+        name: "code",
+        setFocusOnPreviousContent,
+        addContent
+      }));
     default:
       throw new Error(`Unkown tag name: ${tag}`);
   }
@@ -1120,7 +1244,8 @@ function ContentBlock({
   addSpace,
   addContent,
   setFocusOnPreviousContent,
-  setFocusOnNextContent
+  setFocusOnNextContent,
+  id
 }) {
   return /* @__PURE__ */ React.createElement("div", {
     onKeyDown: (evt) => {
@@ -1132,16 +1257,20 @@ function ContentBlock({
         if (evt.target.selectionStart !== evt.target.value.length) {
           return;
         }
+        if (tag === "code") {
+          return;
+        }
         evt == null ? void 0 : evt.preventDefault();
         return addSpace();
       }
     },
     tabIndex: 0,
-    className: "mb-3 relative"
-  }, formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent));
+    className: "relative mb-3"
+  }, formatContent(tag, value, refName, setFocusOnPreviousContent, setFocusOnNextContent, addContent, id));
 }
 
 // app/modules/editor/reducer.ts
+var import_nanoid = require("nanoid");
 var initialState = {
   onText: false,
   content: [],
@@ -1175,7 +1304,7 @@ var reducer = (state, action6) => {
       return __spreadProps(__spreadValues({}, state), {
         onText: tag === "p" ? true : false,
         previous: tag === "h1",
-        content: [...content, { tag, value }],
+        content: [...content, { tag, value, id: (0, import_nanoid.nanoid)() }],
         focusIndex: idx === -1 ? idx + 2 : idx + 1
       });
     }
@@ -1199,21 +1328,21 @@ var reducer = (state, action6) => {
 };
 
 // app/modules/editor/components/textarea-block/textarea-block.tsx
-var import_react15 = require("react");
-var import_react_textarea_autosize2 = __toESM(require("react-textarea-autosize"));
+var import_react16 = require("react");
+var import_react_textarea_autosize3 = __toESM(require("react-textarea-autosize"));
 function TextareaBlock({
   addContent,
   addSpace,
   setFocusOnLastContent,
   addBlur
 }) {
-  const [value, setValue] = (0, import_react15.useState)("");
-  const ref = (0, import_react15.useRef)(null);
-  (0, import_react15.useEffect)(() => {
+  const [value, setValue] = (0, import_react16.useState)("");
+  const ref = (0, import_react16.useRef)(null);
+  (0, import_react16.useEffect)(() => {
     var _a;
     (_a = ref.current) == null ? void 0 : _a.focus();
   }, []);
-  (0, import_react15.useEffect)(() => {
+  (0, import_react16.useEffect)(() => {
     if (value.startsWith("# ")) {
       setValue("");
       addContent({ tag: "h1", value: "" });
@@ -1230,8 +1359,12 @@ function TextareaBlock({
       setValue("");
       addContent({ tag: "img", value: "" });
     }
+    if (value.startsWith("/code ")) {
+      setValue("");
+      addContent({ tag: "code", value: "" });
+    }
   }, [value, addContent]);
-  return /* @__PURE__ */ React.createElement(import_react_textarea_autosize2.default, {
+  return /* @__PURE__ */ React.createElement(import_react_textarea_autosize3.default, {
     style: { paddingLeft: 20, marginLeft: -20 },
     ref,
     value,
@@ -1265,9 +1398,9 @@ function TextareaBlock({
 
 // app/modules/editor/index.tsx
 var Editor = ({ data }) => {
-  const [{ onText, content, focusIndex, title }, dispatch] = (0, import_react16.useReducer)(reducer, __spreadValues({}, initialState));
-  const itemsRef = (0, import_react16.useRef)([]);
-  (0, import_react16.useEffect)(() => {
+  const [{ onText, content, focusIndex, title }, dispatch] = (0, import_react17.useReducer)(reducer, __spreadValues({}, initialState));
+  const itemsRef = (0, import_react17.useRef)([]);
+  (0, import_react17.useEffect)(() => {
     if (data) {
       dispatch({
         type: "SET_CONTENT" /* SetContent */,
@@ -1275,10 +1408,10 @@ var Editor = ({ data }) => {
       });
     }
   }, [data]);
-  (0, import_react16.useEffect)(() => {
+  (0, import_react17.useEffect)(() => {
     itemsRef.current = itemsRef.current.slice(0, content == null ? void 0 : content.length);
   }, [content]);
-  (0, import_react16.useEffect)(() => {
+  (0, import_react17.useEffect)(() => {
     console.log("Setting focus on: ", focusIndex);
     setFocusOn(focusIndex);
   }, [focusIndex]);
@@ -1305,11 +1438,12 @@ var Editor = ({ data }) => {
   }
   return /* @__PURE__ */ React.createElement("section", {
     className: "mx-auto mt-5 w-full max-w-3xl px-5"
-  }, content == null ? void 0 : content.map(({ tag, value }, idx) => {
+  }, content == null ? void 0 : content.map(({ tag, value, id }, idx) => {
     return /* @__PURE__ */ React.createElement(ContentBlock, {
       tag,
       value,
-      key: idx + value,
+      key: id,
+      id,
       onRemove: () => {
         dispatch({
           type: "REMOVE_CONTENT" /* RemoveContent */,
@@ -1344,31 +1478,46 @@ var Editor = ({ data }) => {
 };
 
 // route:/Users/newll/Desktop/portfolio/app/routes/new.tsx
+var fileUploadHandler = (0, import_node7.unstable_createFileUploadHandler)({
+  directory: "../modules/blog/media",
+  file: ({ filename }) => filename
+});
 var action5 = async ({ request }) => {
-  const formData = await request.formData();
+  const formData = await (0, import_node7.unstable_parseMultipartFormData)(request, fileUploadHandler);
   const title = formData.get("title");
-  const body = formData.getAll("p");
+  const fields = Object.entries(formData._fields);
+  const body = [];
   if (typeof title !== "string" || title.length === 0) {
-    return (0, import_node7.json)({ errors: { title: "Title is required" } }, { status: 400 });
+    return (0, import_node8.json)({ errors: { title: "Title is required" } }, { status: 400 });
   }
-  if (body.length === 0) {
-    console.log("body: ", body);
-    return (0, import_node7.json)({ errors: { body: "Body is required" } }, { status: 400 });
-  }
+  fields.forEach((field) => {
+    if (field[0] === "title") {
+      return;
+    }
+    if (field[1][0].type) {
+      return;
+    }
+    if (field[1].length > 1) {
+      field[1].forEach((item) => body.push({ tag: field[0], value: item, id: (0, import_nanoid2.nanoid)() }));
+    } else {
+      body.push({ tag: field[0], value: field[1][0], id: (0, import_nanoid2.nanoid)() });
+    }
+  });
   const post = await createPost({
     title,
-    content: body.join(" "),
+    content: body,
     tags: ["Java Script"]
   });
-  return (0, import_node7.redirect)(`/${post.id}`);
+  return (0, import_node8.redirect)(`/blog/${post.id}`);
 };
 function NewPostPage() {
-  const actionData = (0, import_react17.useActionData)();
-  return /* @__PURE__ */ React.createElement(import_react17.Form, {
-    method: "post"
+  const actionData = (0, import_react18.useActionData)();
+  return /* @__PURE__ */ React.createElement(import_react18.Form, {
+    method: "post",
+    encType: "multipart/form-data"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "mx-auto flex h-16 w-full max-w-5xl items-center justify-between p-6"
-  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react17.Link, {
+  }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(import_react18.Link, {
     to: "/"
   }, /* @__PURE__ */ React.createElement("img", {
     src: logo_default,
@@ -1383,7 +1532,7 @@ function NewPostPage() {
     type: "text",
     name: "title",
     placeholder: "Title",
-    className: "mx-auto mt-5 w-full max-w-3xl px-5 block",
+    className: "mx-auto mt-5 mb-1 block w-full max-w-3xl px-5 text-3xl font-semibold capitalize text-black	",
     required: true
   }), /* @__PURE__ */ React.createElement(Editor, {
     data: { title: "", content: [] }
@@ -1391,7 +1540,7 @@ function NewPostPage() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { "version": "0e48fdef", "entry": { "module": "/build/entry.client-N66XTCW7.js", "imports": ["/build/_shared/chunk-54VPSM24.js", "/build/_shared/chunk-6BO74FWO.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-TQLHJLUZ.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-4F3Z4R77.js", "imports": ["/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-YMARW7SD.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-OWD5RCQB.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-BJVZS73I.js", "imports": ["/build/_shared/chunk-TD7FH44I.js", "/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-UKXERSKM.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-QLUYJO2D.js", "imports": ["/build/_shared/chunk-HWYW5B2Y.js", "/build/_shared/chunk-4HLHUB5Y.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-OP4LACLI.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-6OANUCMP.js", "imports": ["/build/_shared/chunk-NYOE747V.js", "/build/_shared/chunk-OYAERKW6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-0E48FDEF.js" };
+var assets_manifest_default = { "version": "ec8794d3", "entry": { "module": "/build/entry.client-DBWRFAYA.js", "imports": ["/build/_shared/chunk-JUQLXB7L.js", "/build/_shared/chunk-QO3FLZQJ.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-JNZELOV3.js", "imports": ["/build/_shared/chunk-GODUGAF7.js", "/build/_shared/chunk-HQMPOLXY.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/blog/$post": { "id": "routes/blog/$post", "parentId": "root", "path": "blog/:post", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/blog/$post-VS6I5RAD.js", "imports": ["/build/_shared/chunk-7QXFVICU.js", "/build/_shared/chunk-INQ3TZ3V.js", "/build/_shared/chunk-5TJ4YOY4.js", "/build/_shared/chunk-I7VULYKB.js", "/build/_shared/chunk-RFEJF2NX.js", "/build/_shared/chunk-S2WCCEG4.js", "/build/_shared/chunk-IWDHR25W.js", "/build/_shared/chunk-DEZGBVYC.js", "/build/_shared/chunk-F6YB4MNL.js", "/build/_shared/chunk-UI4KO5I3.js", "/build/_shared/chunk-SIRLCJFL.js", "/build/_shared/chunk-RZNZ3ILG.js", "/build/_shared/chunk-ZARSLRJS.js", "/build/_shared/chunk-Y4VVCUSI.js", "/build/_shared/chunk-WWCQLWIJ.js", "/build/_shared/chunk-AQPY3AUS.js", "/build/_shared/chunk-JZACETDK.js", "/build/_shared/chunk-WSQF7IML.js", "/build/_shared/chunk-HXU6UIYL.js", "/build/_shared/chunk-DVJCVUAC.js", "/build/_shared/chunk-O4MDHK3P.js", "/build/_shared/chunk-MXCRIFEB.js", "/build/_shared/chunk-OYQYGFMJ.js", "/build/_shared/chunk-RPJPMTVJ.js", "/build/_shared/chunk-LIZYT2B7.js", "/build/_shared/chunk-ZT3AU2HS.js", "/build/_shared/chunk-ADVIOWE7.js", "/build/_shared/chunk-NZTNEDR6.js", "/build/_shared/chunk-NEMDK7GK.js", "/build/_shared/chunk-5HCTC4LB.js", "/build/_shared/chunk-XPSTWGG2.js", "/build/_shared/chunk-7TVD5KLK.js", "/build/_shared/chunk-WOXDIMJ3.js", "/build/_shared/chunk-AFWTYVFV.js", "/build/_shared/chunk-JXG7KFUI.js", "/build/_shared/chunk-CECZ23JG.js", "/build/_shared/chunk-XLYDWZF6.js", "/build/_shared/chunk-Q6VHNLC6.js", "/build/_shared/chunk-6EBPDTQF.js", "/build/_shared/chunk-6GQWSSDC.js", "/build/_shared/chunk-SP2RZC5Z.js", "/build/_shared/chunk-NVYVKQM5.js", "/build/_shared/chunk-2KJMJCWV.js", "/build/_shared/chunk-XTTMWZW4.js", "/build/_shared/chunk-7YTDRFF3.js", "/build/_shared/chunk-QGRTUGQM.js", "/build/_shared/chunk-OTFC2UYV.js", "/build/_shared/chunk-AU35ALX4.js", "/build/_shared/chunk-V2H37D3I.js", "/build/_shared/chunk-DCGASBWG.js", "/build/_shared/chunk-MYCZGWRT.js", "/build/_shared/chunk-3WKCARK7.js", "/build/_shared/chunk-KLWIY7O6.js", "/build/_shared/chunk-RN5TZT3E.js", "/build/_shared/chunk-W4UUYCV2.js", "/build/_shared/chunk-IJ7TV6FN.js", "/build/_shared/chunk-RFIFZKYB.js", "/build/_shared/chunk-WF4KXMFB.js", "/build/_shared/chunk-UTGUVMKN.js", "/build/_shared/chunk-YEZF2JQH.js", "/build/_shared/chunk-PEXZ7FNL.js", "/build/_shared/chunk-YMMR4TIS.js", "/build/_shared/chunk-JDHNNMG3.js", "/build/_shared/chunk-TE4OS2IB.js", "/build/_shared/chunk-SNKT453P.js", "/build/_shared/chunk-HAZNDOWY.js", "/build/_shared/chunk-WKLME534.js", "/build/_shared/chunk-4Z5DZBRZ.js", "/build/_shared/chunk-OIYWSOTR.js", "/build/_shared/chunk-HUUE3LBV.js", "/build/_shared/chunk-SDNJHYOP.js", "/build/_shared/chunk-IRJIRSXF.js", "/build/_shared/chunk-VXF6XBGG.js", "/build/_shared/chunk-D2HD2YG3.js", "/build/_shared/chunk-5ESWLPIP.js", "/build/_shared/chunk-MKYVAHGB.js", "/build/_shared/chunk-DEWSCYB6.js", "/build/_shared/chunk-FIW2GVWC.js", "/build/_shared/chunk-7FVAIQB3.js", "/build/_shared/chunk-6ORENZGF.js", "/build/_shared/chunk-NPKDDADF.js", "/build/_shared/chunk-K23T2NVC.js", "/build/_shared/chunk-TGXYFJOB.js", "/build/_shared/chunk-7MQTUHYR.js", "/build/_shared/chunk-V67LZJZB.js", "/build/_shared/chunk-FCXU7H6H.js", "/build/_shared/chunk-F4PU7MDX.js", "/build/_shared/chunk-SIONS5LK.js", "/build/_shared/chunk-CBR5BHBK.js", "/build/_shared/chunk-Z7K7AJWW.js", "/build/_shared/chunk-67XLNILH.js", "/build/_shared/chunk-O6C7GYUY.js", "/build/_shared/chunk-U66QGY6D.js", "/build/_shared/chunk-CMEPXVCI.js", "/build/_shared/chunk-GX7UWLQ5.js", "/build/_shared/chunk-6FFT2H4G.js", "/build/_shared/chunk-QI3VC2E4.js", "/build/_shared/chunk-RQ256NFG.js", "/build/_shared/chunk-PON5RS32.js", "/build/_shared/chunk-RNJD5BWO.js", "/build/_shared/chunk-ZWLQ3UDQ.js", "/build/_shared/chunk-LM2I346I.js", "/build/_shared/chunk-C7WCN64U.js", "/build/_shared/chunk-UW7MFZJN.js", "/build/_shared/chunk-E2I7EXFK.js", "/build/_shared/chunk-7B3LRHMA.js", "/build/_shared/chunk-SP2CRW6J.js", "/build/_shared/chunk-YE2PV6WR.js", "/build/_shared/chunk-6OMYIKY4.js", "/build/_shared/chunk-LAILY5S7.js", "/build/_shared/chunk-TROTAFQY.js", "/build/_shared/chunk-QGH44ITA.js", "/build/_shared/chunk-B6JPJI2B.js", "/build/_shared/chunk-A4VHEFUR.js", "/build/_shared/chunk-3DZ4EQ6Y.js", "/build/_shared/chunk-KEHBJRNZ.js", "/build/_shared/chunk-CGO3DITB.js", "/build/_shared/chunk-OTTXFDR6.js", "/build/_shared/chunk-6ACJLWUT.js", "/build/_shared/chunk-SUSYNJGV.js", "/build/_shared/chunk-GY6XG4SS.js", "/build/_shared/chunk-C2YOM6B7.js", "/build/_shared/chunk-QXC6BFR5.js", "/build/_shared/chunk-MNJF4I5D.js", "/build/_shared/chunk-KKHYT5I6.js", "/build/_shared/chunk-7NOYQHFG.js", "/build/_shared/chunk-INPVZXVZ.js", "/build/_shared/chunk-OFGEWNJJ.js", "/build/_shared/chunk-TEQVINM6.js", "/build/_shared/chunk-RWLGTPVC.js", "/build/_shared/chunk-XVUREMJW.js", "/build/_shared/chunk-JBZMP5YC.js", "/build/_shared/chunk-DLBAFYDV.js", "/build/_shared/chunk-MMAUQVPH.js", "/build/_shared/chunk-GS5SYT2Z.js", "/build/_shared/chunk-EEMBZG3R.js", "/build/_shared/chunk-AGOGHPLI.js", "/build/_shared/chunk-X6K73OYF.js", "/build/_shared/chunk-4KGYNMA6.js", "/build/_shared/chunk-3TKDZQCO.js", "/build/_shared/chunk-FLFHGPD6.js", "/build/_shared/chunk-MM6PGNPP.js", "/build/_shared/chunk-FXBXR3QV.js", "/build/_shared/chunk-PCSMYCLO.js", "/build/_shared/chunk-JNAR4BSE.js", "/build/_shared/chunk-LWBMAHVZ.js", "/build/_shared/chunk-WCNXSMJL.js", "/build/_shared/chunk-IR5CQJPU.js", "/build/_shared/chunk-CTZYQSSO.js", "/build/_shared/chunk-7ONKZ7MX.js", "/build/_shared/chunk-HGBTDI6Z.js", "/build/_shared/chunk-3SUYD426.js", "/build/_shared/chunk-FUPB2VIC.js", "/build/_shared/chunk-UHVEDGC2.js", "/build/_shared/chunk-5FUTMZK7.js", "/build/_shared/chunk-VOEP27GX.js", "/build/_shared/chunk-PS2RU5VF.js", "/build/_shared/chunk-DDK63HTJ.js", "/build/_shared/chunk-SRN45FPS.js", "/build/_shared/chunk-VWBZJ4Q7.js", "/build/_shared/chunk-EBXC5FSF.js", "/build/_shared/chunk-YQYVGCPL.js", "/build/_shared/chunk-DL2ETRT3.js", "/build/_shared/chunk-IETM76Q2.js", "/build/_shared/chunk-CRAKTOH2.js", "/build/_shared/chunk-374WDW2S.js", "/build/_shared/chunk-HI6LIUPG.js", "/build/_shared/chunk-PVBCAW3L.js", "/build/_shared/chunk-A2JPT72S.js", "/build/_shared/chunk-O4YZ6TR3.js", "/build/_shared/chunk-RU2EEAZH.js", "/build/_shared/chunk-4CQBRIMD.js", "/build/_shared/chunk-NSMJO3QW.js", "/build/_shared/chunk-ECYBKH32.js", "/build/_shared/chunk-FHFQ5NWE.js", "/build/_shared/chunk-ZZ47IEQX.js", "/build/_shared/chunk-2CCG3CMQ.js", "/build/_shared/chunk-M37UYO7X.js", "/build/_shared/chunk-UHSSHENU.js", "/build/_shared/chunk-RJWP6ERS.js", "/build/_shared/chunk-MDEHTX2Y.js", "/build/_shared/chunk-I7QC54UG.js", "/build/_shared/chunk-W2CYL2ZO.js", "/build/_shared/chunk-NPWYLCZT.js", "/build/_shared/chunk-QPDI47EK.js", "/build/_shared/chunk-BJU5J3IS.js", "/build/_shared/chunk-5U2BGWUT.js", "/build/_shared/chunk-HYH44D5P.js", "/build/_shared/chunk-M6UHEEWM.js", "/build/_shared/chunk-UFB3I6XV.js", "/build/_shared/chunk-AMC63YZO.js", "/build/_shared/chunk-GZRAWRTN.js", "/build/_shared/chunk-HOICNU6C.js", "/build/_shared/chunk-5VJMK4NU.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/blog/index": { "id": "routes/blog/index", "parentId": "root", "path": "blog", "index": true, "caseSensitive": void 0, "module": "/build/routes/blog/index-ZUPOPGEX.js", "imports": ["/build/_shared/chunk-LTPPQOLB.js", "/build/_shared/chunk-NC6M5MO4.js", "/build/_shared/chunk-5VJMK4NU.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/healthcheck": { "id": "routes/healthcheck", "parentId": "root", "path": "healthcheck", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/healthcheck-JI5H6Z3L.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-4XOQW53J.js", "imports": ["/build/_shared/chunk-LTPPQOLB.js", "/build/_shared/chunk-NC6M5MO4.js", "/build/_shared/chunk-5VJMK4NU.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/join": { "id": "routes/join", "parentId": "root", "path": "join", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/join-W3MYQEBJ.js", "imports": ["/build/_shared/chunk-VFT764YY.js", "/build/_shared/chunk-NC6M5MO4.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/login": { "id": "routes/login", "parentId": "root", "path": "login", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/login-7XXQGTLM.js", "imports": ["/build/_shared/chunk-VFT764YY.js", "/build/_shared/chunk-NC6M5MO4.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/logout": { "id": "routes/logout", "parentId": "root", "path": "logout", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/logout-MR6SSJCV.js", "imports": void 0, "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/new": { "id": "routes/new", "parentId": "root", "path": "new", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/new-2KWNHDDM.js", "imports": ["/build/_shared/chunk-7QXFVICU.js", "/build/_shared/chunk-INQ3TZ3V.js", "/build/_shared/chunk-5TJ4YOY4.js", "/build/_shared/chunk-I7VULYKB.js", "/build/_shared/chunk-RFEJF2NX.js", "/build/_shared/chunk-S2WCCEG4.js", "/build/_shared/chunk-IWDHR25W.js", "/build/_shared/chunk-DEZGBVYC.js", "/build/_shared/chunk-F6YB4MNL.js", "/build/_shared/chunk-UI4KO5I3.js", "/build/_shared/chunk-SIRLCJFL.js", "/build/_shared/chunk-RZNZ3ILG.js", "/build/_shared/chunk-ZARSLRJS.js", "/build/_shared/chunk-Y4VVCUSI.js", "/build/_shared/chunk-WWCQLWIJ.js", "/build/_shared/chunk-AQPY3AUS.js", "/build/_shared/chunk-JZACETDK.js", "/build/_shared/chunk-WSQF7IML.js", "/build/_shared/chunk-HXU6UIYL.js", "/build/_shared/chunk-DVJCVUAC.js", "/build/_shared/chunk-O4MDHK3P.js", "/build/_shared/chunk-MXCRIFEB.js", "/build/_shared/chunk-OYQYGFMJ.js", "/build/_shared/chunk-RPJPMTVJ.js", "/build/_shared/chunk-LIZYT2B7.js", "/build/_shared/chunk-ZT3AU2HS.js", "/build/_shared/chunk-ADVIOWE7.js", "/build/_shared/chunk-NZTNEDR6.js", "/build/_shared/chunk-NEMDK7GK.js", "/build/_shared/chunk-5HCTC4LB.js", "/build/_shared/chunk-XPSTWGG2.js", "/build/_shared/chunk-7TVD5KLK.js", "/build/_shared/chunk-WOXDIMJ3.js", "/build/_shared/chunk-AFWTYVFV.js", "/build/_shared/chunk-JXG7KFUI.js", "/build/_shared/chunk-CECZ23JG.js", "/build/_shared/chunk-XLYDWZF6.js", "/build/_shared/chunk-Q6VHNLC6.js", "/build/_shared/chunk-6EBPDTQF.js", "/build/_shared/chunk-6GQWSSDC.js", "/build/_shared/chunk-SP2RZC5Z.js", "/build/_shared/chunk-NVYVKQM5.js", "/build/_shared/chunk-2KJMJCWV.js", "/build/_shared/chunk-XTTMWZW4.js", "/build/_shared/chunk-7YTDRFF3.js", "/build/_shared/chunk-QGRTUGQM.js", "/build/_shared/chunk-OTFC2UYV.js", "/build/_shared/chunk-AU35ALX4.js", "/build/_shared/chunk-V2H37D3I.js", "/build/_shared/chunk-DCGASBWG.js", "/build/_shared/chunk-MYCZGWRT.js", "/build/_shared/chunk-3WKCARK7.js", "/build/_shared/chunk-KLWIY7O6.js", "/build/_shared/chunk-RN5TZT3E.js", "/build/_shared/chunk-W4UUYCV2.js", "/build/_shared/chunk-IJ7TV6FN.js", "/build/_shared/chunk-RFIFZKYB.js", "/build/_shared/chunk-WF4KXMFB.js", "/build/_shared/chunk-UTGUVMKN.js", "/build/_shared/chunk-YEZF2JQH.js", "/build/_shared/chunk-PEXZ7FNL.js", "/build/_shared/chunk-YMMR4TIS.js", "/build/_shared/chunk-JDHNNMG3.js", "/build/_shared/chunk-TE4OS2IB.js", "/build/_shared/chunk-SNKT453P.js", "/build/_shared/chunk-HAZNDOWY.js", "/build/_shared/chunk-WKLME534.js", "/build/_shared/chunk-4Z5DZBRZ.js", "/build/_shared/chunk-OIYWSOTR.js", "/build/_shared/chunk-HUUE3LBV.js", "/build/_shared/chunk-SDNJHYOP.js", "/build/_shared/chunk-IRJIRSXF.js", "/build/_shared/chunk-VXF6XBGG.js", "/build/_shared/chunk-D2HD2YG3.js", "/build/_shared/chunk-5ESWLPIP.js", "/build/_shared/chunk-MKYVAHGB.js", "/build/_shared/chunk-DEWSCYB6.js", "/build/_shared/chunk-FIW2GVWC.js", "/build/_shared/chunk-7FVAIQB3.js", "/build/_shared/chunk-6ORENZGF.js", "/build/_shared/chunk-NPKDDADF.js", "/build/_shared/chunk-K23T2NVC.js", "/build/_shared/chunk-TGXYFJOB.js", "/build/_shared/chunk-7MQTUHYR.js", "/build/_shared/chunk-V67LZJZB.js", "/build/_shared/chunk-FCXU7H6H.js", "/build/_shared/chunk-F4PU7MDX.js", "/build/_shared/chunk-SIONS5LK.js", "/build/_shared/chunk-CBR5BHBK.js", "/build/_shared/chunk-Z7K7AJWW.js", "/build/_shared/chunk-67XLNILH.js", "/build/_shared/chunk-O6C7GYUY.js", "/build/_shared/chunk-U66QGY6D.js", "/build/_shared/chunk-CMEPXVCI.js", "/build/_shared/chunk-GX7UWLQ5.js", "/build/_shared/chunk-6FFT2H4G.js", "/build/_shared/chunk-QI3VC2E4.js", "/build/_shared/chunk-RQ256NFG.js", "/build/_shared/chunk-PON5RS32.js", "/build/_shared/chunk-RNJD5BWO.js", "/build/_shared/chunk-ZWLQ3UDQ.js", "/build/_shared/chunk-LM2I346I.js", "/build/_shared/chunk-C7WCN64U.js", "/build/_shared/chunk-UW7MFZJN.js", "/build/_shared/chunk-E2I7EXFK.js", "/build/_shared/chunk-7B3LRHMA.js", "/build/_shared/chunk-SP2CRW6J.js", "/build/_shared/chunk-YE2PV6WR.js", "/build/_shared/chunk-6OMYIKY4.js", "/build/_shared/chunk-LAILY5S7.js", "/build/_shared/chunk-TROTAFQY.js", "/build/_shared/chunk-QGH44ITA.js", "/build/_shared/chunk-B6JPJI2B.js", "/build/_shared/chunk-A4VHEFUR.js", "/build/_shared/chunk-3DZ4EQ6Y.js", "/build/_shared/chunk-KEHBJRNZ.js", "/build/_shared/chunk-CGO3DITB.js", "/build/_shared/chunk-OTTXFDR6.js", "/build/_shared/chunk-6ACJLWUT.js", "/build/_shared/chunk-SUSYNJGV.js", "/build/_shared/chunk-GY6XG4SS.js", "/build/_shared/chunk-C2YOM6B7.js", "/build/_shared/chunk-QXC6BFR5.js", "/build/_shared/chunk-MNJF4I5D.js", "/build/_shared/chunk-KKHYT5I6.js", "/build/_shared/chunk-7NOYQHFG.js", "/build/_shared/chunk-INPVZXVZ.js", "/build/_shared/chunk-OFGEWNJJ.js", "/build/_shared/chunk-TEQVINM6.js", "/build/_shared/chunk-RWLGTPVC.js", "/build/_shared/chunk-XVUREMJW.js", "/build/_shared/chunk-JBZMP5YC.js", "/build/_shared/chunk-DLBAFYDV.js", "/build/_shared/chunk-MMAUQVPH.js", "/build/_shared/chunk-GS5SYT2Z.js", "/build/_shared/chunk-EEMBZG3R.js", "/build/_shared/chunk-AGOGHPLI.js", "/build/_shared/chunk-X6K73OYF.js", "/build/_shared/chunk-4KGYNMA6.js", "/build/_shared/chunk-3TKDZQCO.js", "/build/_shared/chunk-FLFHGPD6.js", "/build/_shared/chunk-MM6PGNPP.js", "/build/_shared/chunk-FXBXR3QV.js", "/build/_shared/chunk-PCSMYCLO.js", "/build/_shared/chunk-JNAR4BSE.js", "/build/_shared/chunk-LWBMAHVZ.js", "/build/_shared/chunk-WCNXSMJL.js", "/build/_shared/chunk-IR5CQJPU.js", "/build/_shared/chunk-CTZYQSSO.js", "/build/_shared/chunk-7ONKZ7MX.js", "/build/_shared/chunk-HGBTDI6Z.js", "/build/_shared/chunk-3SUYD426.js", "/build/_shared/chunk-FUPB2VIC.js", "/build/_shared/chunk-UHVEDGC2.js", "/build/_shared/chunk-5FUTMZK7.js", "/build/_shared/chunk-VOEP27GX.js", "/build/_shared/chunk-PS2RU5VF.js", "/build/_shared/chunk-DDK63HTJ.js", "/build/_shared/chunk-SRN45FPS.js", "/build/_shared/chunk-VWBZJ4Q7.js", "/build/_shared/chunk-EBXC5FSF.js", "/build/_shared/chunk-YQYVGCPL.js", "/build/_shared/chunk-DL2ETRT3.js", "/build/_shared/chunk-IETM76Q2.js", "/build/_shared/chunk-CRAKTOH2.js", "/build/_shared/chunk-374WDW2S.js", "/build/_shared/chunk-HI6LIUPG.js", "/build/_shared/chunk-PVBCAW3L.js", "/build/_shared/chunk-A2JPT72S.js", "/build/_shared/chunk-O4YZ6TR3.js", "/build/_shared/chunk-RU2EEAZH.js", "/build/_shared/chunk-4CQBRIMD.js", "/build/_shared/chunk-NSMJO3QW.js", "/build/_shared/chunk-ECYBKH32.js", "/build/_shared/chunk-FHFQ5NWE.js", "/build/_shared/chunk-ZZ47IEQX.js", "/build/_shared/chunk-2CCG3CMQ.js", "/build/_shared/chunk-M37UYO7X.js", "/build/_shared/chunk-UHSSHENU.js", "/build/_shared/chunk-RJWP6ERS.js", "/build/_shared/chunk-MDEHTX2Y.js", "/build/_shared/chunk-I7QC54UG.js", "/build/_shared/chunk-W2CYL2ZO.js", "/build/_shared/chunk-NPWYLCZT.js", "/build/_shared/chunk-QPDI47EK.js", "/build/_shared/chunk-BJU5J3IS.js", "/build/_shared/chunk-5U2BGWUT.js", "/build/_shared/chunk-HYH44D5P.js", "/build/_shared/chunk-M6UHEEWM.js", "/build/_shared/chunk-UFB3I6XV.js", "/build/_shared/chunk-AMC63YZO.js", "/build/_shared/chunk-GZRAWRTN.js", "/build/_shared/chunk-HOICNU6C.js", "/build/_shared/chunk-5VJMK4NU.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/upload": { "id": "routes/upload", "parentId": "root", "path": "upload", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/upload-4DZBKRKP.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false } }, "url": "/build/manifest-EC8794D3.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports };
@@ -1435,6 +1584,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: logout_exports
+  },
+  "routes/upload": {
+    id: "routes/upload",
+    parentId: "root",
+    path: "upload",
+    index: void 0,
+    caseSensitive: void 0,
+    module: upload_exports
   },
   "routes/index": {
     id: "routes/index",

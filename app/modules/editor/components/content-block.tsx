@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import CodeBlock from "./code-block/code-block";
 import StudyInput from "./input-block";
 import InputImage from "./input-image";
 import TextBlock from "./text-block/text-block";
@@ -9,7 +10,8 @@ function formatContent(
   refName: any,
   setFocusOnPreviousContent: Function,
   setFocusOnNextContent: Function,
-  addContent: Function
+  addContent: Function,
+  id: string
 ) {
   switch (tag) {
     case "h1":
@@ -18,44 +20,42 @@ function formatContent(
           <StudyInput
             initialValue={value}
             placeholder="Heading 1"
-            name={tag}
+            name={"h1"}
             refName={refName}
           />
         </h1>
       );
-    case 'h2':
+    case "h2":
       return (
         <h2 className="font-title text-2xl">
           <StudyInput
             initialValue={value}
             placeholder="Heading 2"
-            name={tag}
+            name={"h2"}
             refName={refName}
           />
         </h2>
-      )
-    case 'h3':
+      );
+    case "h3":
       return (
         <h3 className="font-title text-xl">
           <StudyInput
             initialValue={value}
             placeholder="Heading 3"
-            name={tag}
+            name={"h3"}
             refName={refName}
           />
         </h3>
-      )
-    case 'img': 
-        return (
-          <InputImage />
-        )
+      );
+    case "img":
+      return <InputImage name={id} />;
     case "p":
       return (
         <p style={{ margin: 0 }}>
           <TextBlock
             initialValue={value}
             refName={refName}
-            name={tag}
+            name={"p"}
             setFocusOnPreviousContent={setFocusOnPreviousContent}
             addContent={addContent}
             // setFocusOnNextContent={setFocusOnNextContent}
@@ -66,11 +66,24 @@ function formatContent(
       return (
         <TextBlock
           refName={refName}
-          name={"space"}
+          name={"div"}
           setFocusOnPreviousContent={setFocusOnPreviousContent}
           addContent={addContent}
           // setFocusOnNextContent={setFocusOnNextContent}
         />
+      );
+    case "code":
+      return (
+        <div>
+          <CodeBlock
+            initialValue={value}
+            refName={refName}
+            name={"code"}
+            setFocusOnPreviousContent={setFocusOnPreviousContent}
+            addContent={addContent}
+            // setFocusOnNextContent={setFocusOnNextContent}
+          />
+        </div>
       );
     default:
       throw new Error(`Unkown tag name: ${tag}`);
@@ -86,15 +99,17 @@ export default function ContentBlock({
   addContent,
   setFocusOnPreviousContent,
   setFocusOnNextContent,
+  id,
 }: {
   tag: string;
   value: string;
   refName: any;
   onRemove: Function;
   addSpace: Function;
-  addContent: Function,
+  addContent: Function;
   setFocusOnPreviousContent: Function;
   setFocusOnNextContent: Function;
+  id: string;
 }) {
   return (
     <div
@@ -104,24 +119,29 @@ export default function ContentBlock({
           onRemove();
         }
         if (evt.code === "Enter") {
-          if(evt.target.selectionStart !== evt.target.value.length) {
-            return
+          if (evt.target.selectionStart !== evt.target.value.length) {
+            return;
+          }
+          if (tag === "code") {
+            return;
           }
           evt?.preventDefault();
-          
+
           return addSpace();
         }
       }}
       tabIndex={0}
-      className="mb-3 relative"
+      className="relative mb-3"
     >
+      {/* <input type="hidden" name="id" defaultValue={id} /> */}
       {formatContent(
         tag,
         value,
         refName,
         setFocusOnPreviousContent,
         setFocusOnNextContent,
-        addContent
+        addContent,
+        id
       )}
     </div>
   );

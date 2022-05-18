@@ -8,7 +8,7 @@ import { json } from "@remix-run/server-runtime";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import { Link, useLoaderData } from "@remix-run/react";
 import AuthorPhoto from "../../public/author_photo.jpg";
-import myDuo from '../../public/myDuo.png'
+import myDuo from "../../public/myDuo.png";
 
 const SOCIAL = [
   {
@@ -45,13 +45,13 @@ const SOCIAL = [
 
 const PROJECTS = [
   {
-    title: 'myDuo',
-    link: 'https://my-duo.vercel.app/',
+    title: "myDuo",
+    link: "https://my-duo.vercel.app/",
     img: myDuo,
     description: `Literally it's a clone of Duolingo.com, but with a little change: you can create your own exercises and practice them.`,
-    technologies: ['React', 'Prisma', 'MongoDB', 'TS', 'Vercel']
-  }
-]
+    technologies: ["React", "Prisma", "MongoDB", "TS", "Vercel"],
+  },
+];
 
 type LoaderData = {
   posts: Awaited<ReturnType<typeof getPostListItems>>;
@@ -67,7 +67,7 @@ export default function Index() {
   const user = useOptionalUser();
 
   return (
-    <main className="bg-whip px-14 pt-7 min-h-screen">
+    <main className="min-h-screen bg-whip px-14 pt-7">
       <Menu user={user} />
       <section className="mt-20 flex justify-between px-20">
         <div className="max-w-lr py-20">
@@ -108,14 +108,14 @@ export default function Index() {
         <h2 className="font-title text-4xl">Latest Posts</h2>
         <div className="flex flex-wrap justify-between">
           {posts.map(({ id, title, content, createdAt, tags }) => (
-          <div className="mt-12 w-full max-w-lg" key={id}>
-            <Post
-              to={`blog/${id}`}
-              title={title}
-              description={content}
-              createdAt={formatDateTime(new Date(createdAt))}
-              tags={tags}
-            />
+            <div className="mt-12 w-full max-w-lg" key={id}>
+              <Post
+                to={`blog/${id}`}
+                title={title}
+                description={content[0]?.value}
+                createdAt={formatDateTime(new Date(createdAt))}
+                tags={tags}
+              />
             </div>
           ))}
         </div>
@@ -123,25 +123,39 @@ export default function Index() {
 
       <section className="my-20 p-20">
         <h2 className="mb-10 font-title text-4xl">Latest Projects</h2>
-            {PROJECTS.map(project => <div key={project.title} className="flex">
+        {PROJECTS.map((project) => (
+          <div key={project.title} className="flex">
             <a href={project.link} className="w-3/6">
-            <img src={project.img} alt={project.title} />
-          </a>
-          <div className="pl-5">
-            <a href={project.link} className="font-title text-3xl">{project.title}</a>
-            <p className="font-text text-xl my-3">{project.description}</p>
-            <p>Technologies used: </p>
-            <ul>
-              {project.technologies.map(tech => <li key={tech}>{tech}</li>)}
-            </ul>
+              <img src={project.img} alt={project.title} />
+            </a>
+            <div className="pl-5">
+              <a href={project.link} className="font-title text-3xl">
+                {project.title}
+              </a>
+              <p className="my-3 font-text text-xl">{project.description}</p>
+              <p>Technologies used: </p>
+              <ul>
+                {project.technologies.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-            </div>)}
+        ))}
       </section>
 
-      <section className="my-20 p-20 flex flex-col justify-center">
-        <h2 className="mb-10 font-title text-4xl text-center">Get In Touch</h2>
-        <p className="text-center mb-8">Currently I'm looking for a job as Frontend or Fullstack web developer.</p>
-        <a href="mailto:qepttt@gmail.com" className="mx-auto p-5 bg-red text-white font-semibold">Say Hello</a>
+      <section className="my-20 flex flex-col justify-center p-20">
+        <h2 className="mb-10 text-center font-title text-4xl">Get In Touch</h2>
+        <p className="mb-8 text-center">
+          Currently I'm looking for a job as Frontend or Fullstack web
+          developer.
+        </p>
+        <a
+          href="mailto:qepttt@gmail.com"
+          className="mx-auto bg-red p-5 font-semibold text-white"
+        >
+          Say Hello
+        </a>
       </section>
     </main>
   );

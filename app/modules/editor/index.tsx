@@ -27,13 +27,13 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
   }, [content]);
 
   useEffect(() => {
-    console.log('Setting focus on: ', focusIndex)
+    console.log("Setting focus on: ", focusIndex);
     setFocusOn(focusIndex);
   }, [focusIndex]);
 
   function setFocusOn(idx: number) {
-    if(!itemsRef.current[idx]) {
-      return itemsRef.current[idx-1]?.focus()
+    if (!itemsRef.current[idx]) {
+      return itemsRef.current[idx - 1]?.focus();
     }
     return itemsRef.current[idx]?.focus();
   }
@@ -55,13 +55,13 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
   return (
     <section className="mx-auto mt-5 w-full max-w-3xl px-5">
       {/* <Form method="post"> */}
-      {content?.map(({ tag, value }: any, idx: number) => {
+      {content?.map(({ tag, value, id }: any, idx: number) => {
         return (
           <ContentBlock
             tag={tag}
             value={value}
-            key={idx + value}
-          
+            key={id}
+            id={id}
             onRemove={() => {
               dispatch({
                 type: ActionKind.RemoveContent,
@@ -89,8 +89,8 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
         //   dispatch({
         //         type: ActionKind.AddSpace,
         //         payload: { idx: focusIndex },
-        //       })} 
-        //     } 
+        //       })}
+        //     }
         //     style={{position: 'absolute', left: -20, top: 1, cursor: 'pointer', zIndex: 999}}
         //     >+</button>
         <TextareaBlock
@@ -103,13 +103,16 @@ export const Editor = ({ data }: { data: { title: ""; content: [] } }) => {
               payload: { idx: focusIndex },
             })
           }
-          addBlur={() => {dispatch({type: ActionKind.Blur})}}
+          addBlur={() => {
+            dispatch({ type: ActionKind.Blur });
+          }}
           setFocusOnLastContent={setFocusOnLastContent}
-          height={"calc(100vh - 95px"} />
-        // /></div>
+          height={"calc(100vh - 95px"}
+        />
       ) : (
+        // /></div>
         <div
-          style={{ height: "80vh", cursor: 'text' }}
+          style={{ height: "80vh", cursor: "text" }}
           onClick={() => {
             dispatch({ type: ActionKind.Focus });
           }}

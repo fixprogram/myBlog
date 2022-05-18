@@ -16,7 +16,7 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  content   String
+  content   Content[]
   tags      String[]
 }
 
@@ -25,4 +25,10 @@ model User {
   email         String  @unique
   name          String?
   passwordHash  String
+}
+
+type Content {
+  id    String
+  tag   String
+  value String
 }

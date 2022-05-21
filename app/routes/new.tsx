@@ -20,17 +20,17 @@ type ActionData = {
   };
 };
 
-export const fileUploadHandler = unstable_createFileUploadHandler({
-  directory: "../modules/blog/media",
-  file: ({ filename }) => filename,
-});
+// export const fileUploadHandler = unstable_createFileUploadHandler({
+//   directory: "../modules/blog/media",
+//   file: ({ filename }) => filename,
+// });
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await unstable_parseMultipartFormData(
-    request,
-    fileUploadHandler
-  );
-  // const formData = await request.formData();
+  // const formData = await unstable_parseMultipartFormData(
+  //   request,
+  //   fileUploadHandler
+  // );
+  const formData = await request.formData();
   const title = formData.get("title");
   const fields = Object.entries(formData._fields);
   const body = [] as Content[];

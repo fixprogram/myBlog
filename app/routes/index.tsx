@@ -75,7 +75,7 @@ export default function Index() {
             className="font-title text-6xl text-black"
             style={{ margin: "0.67em 0" }}
           >
-            Hey I'm Den Davydov
+            Hey I'm Denis Davydov
           </h1>
           <p className="font-text text-2xl">
             I’m a web developer and content creator based in Finland.
@@ -105,7 +105,12 @@ export default function Index() {
       </section>
 
       <section className="my-20 p-20">
-        <h2 className="font-title text-4xl">Latest Posts</h2>
+        <div className="flex justify-between">
+          <h2 className="font-title text-4xl">Latest Posts</h2>
+          <Link to="/blog" className="text-2xl">
+            See all
+          </Link>
+        </div>
         <div className="flex flex-wrap justify-between">
           {posts.map(({ id, title, content, createdAt, tags }) => (
             <div className="mt-12 w-full max-w-lg" key={id}>
@@ -125,18 +130,30 @@ export default function Index() {
         <h2 className="mb-10 font-title text-4xl">Latest Projects</h2>
         {PROJECTS.map((project) => (
           <div key={project.title} className="flex">
-            <a href={project.link} className="w-3/6">
+            <a
+              href={project.link}
+              className="w-3/6"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={project.img} alt={project.title} />
             </a>
             <div className="pl-5">
-              <a href={project.link} className="font-title text-3xl">
+              <a
+                href={project.link}
+                className="font-title text-3xl"
+                target="_blank"
+                rel="noreferrer"
+              >
                 {project.title}
               </a>
               <p className="my-3 font-text text-xl">{project.description}</p>
               <p>Technologies used: </p>
-              <ul>
+              <ul className="mt-3 flex flex-wrap">
                 {project.technologies.map((tech) => (
-                  <li key={tech}>{tech}</li>
+                  <li key={tech} className="pr-3">
+                    {tech}
+                  </li>
                 ))}
               </ul>
             </div>
